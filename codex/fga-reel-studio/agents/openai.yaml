@@ -1,0 +1,6 @@
+interface:
+  display_name: "FGA Reel Studio"
+  short_description: "Edit talking-to-camera reels on your Mac"
+  default_prompt: "Use $fga-reel-studio to help me edit a reel."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,28 @@
+{
+  "_about": "Optional. Values a reel-kit style pack cannot hold, for the Quick lane. Put a copy named quick-overrides.json inside the style folder, next to style.json. Everything is optional: leave out what you do not need.",
+  "default_look": "Bold",
+  "base": {
+    "name": "My reel look",
+    "fonts": { "titles": "Gloock", "numbers": "Anton", "accents": "Instrument Serif" },
+    "colors": { "text": "#ffffff", "outline": "#14080f", "accent": "#ddd0ff", "accent2": "#ffb3d1" },
+    "grade": "cool",
+    "hook": { "style": "editorial", "clears_on": "first spoken number", "notes": "What the opening lines look like" },
+    "list_cards": { "number_font": "Anton", "label_font": "Archivo Black", "y": 420, "notes": "Numbered cards up top" },
+    "word_pops": { "font": "Instrument Serif", "font_style": "italic", "notes": "Feeling words around the head" },
+    "series_title": { "font": "Calistoga", "text": "my series|part 1", "notes": "Lines split with |. Same look every episode" },
+    "sounds": { "typing": "click1", "pop": "pop", "reveal": "sparkle", "transition": "swish", "volume_db": -14 },
+    "rules": ["Any rule of yours to carry into every Quick-lane step."]
+  },
+  "looks": {
+    "Bold": {
+      "fidelity": "exact",
+      "captions": { "style": "italic_punch", "px": 165, "y": 1360, "outline": 8, "under_windows": { "px": 80, "y": 1432 }, "notes": "What this look is" },
+      "colors": { "key": "#ffe94d" }
+    },
+    "Soft": {
+      "fidelity": "nearest",
+      "captions": { "style": "serif_mix", "px": 100, "y": 1360, "outline": 5, "under_windows": { "px": 80, "y": 1432 }, "notes": "Bold sans, key words in a serif italic" },
+      "colors": { "key": "#f3eba3" }
+    }
+  }
+}

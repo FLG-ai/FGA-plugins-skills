@@ -1,0 +1,202 @@
+diff -ruN --exclude=patches --exclude=KIT.md --exclude=SKILL.md --exclude=__pycache__ --exclude=.DS_Store upstream/pipeline/common.py b/pipeline/common.py
+--- a/pipeline/common.py	2026-10-10 20:44:00
++++ b/pipeline/common.py	2026-10-11 22:10:58
+@@ -39,7 +39,7 @@
+ 
+ def clip_start(t):
+     """a clip's data-start for the frame that holds t: 2ms early so the renderer never shows it a frame late"""
+-    return q(t) - 0.002
++    return max(0.0, q(t) - 0.002)                 # never negative: a clip at 0 trips the hyperframes static guard
+ 
+ 
+ def project_arg():
+diff -ruN --exclude=patches --exclude=KIT.md --exclude=SKILL.md --exclude=__pycache__ --exclude=.DS_Store upstream/pipeline/cut.py b/pipeline/cut.py
+--- a/pipeline/cut.py	2026-10-10 20:44:00
++++ b/pipeline/cut.py	2026-10-12 09:52:45
+@@ -63,7 +63,7 @@
+     written next to a hard cut already inside a kept line belongs on that cut (else: a cut, then a reframe a few
+     frames later)"""
+     joins = [q(g["vout"]) for g in segs[1:]]
+-    inside = [q(g["vout"] + c - g["vs"]) for g in segs for c in source_cuts(E) if g["vs"] < c < g["ve"]]
++    inside = [q(g["vout"] + (c - g["vs"]) / g["sp"]) for g in segs for c in source_cuts(E) if g["vs"] < c < g["ve"]]
+     out = []
+     for t, f in E.SHOTS:
+         j = min(joins, key=lambda x: abs(x - t)) if joins else t
+@@ -81,24 +81,26 @@
+     segs, off = [], 0.0
+     n = len(E.KEEP)
+     L = leads(E) if n > 1 else []
++    SP = getattr(E, "SPEED", None) or {}               # {piece index: factor}: a drawn-out word played faster (atempo + setpts)
+     for i, (s, e) in enumerate(E.KEEP):
++        sp = float(SP.get(i, 1.0))
+         lin = L[i - 1] if i > 0 else 0.0
+         lout = L[i] if i < n - 1 else E.HOLD
+-        segs.append(dict(s=s, e=e, out=off, vs=s + lin, ve=e + lout, vout=off + lin))
+-        off += e - s
++        segs.append(dict(s=s, e=e, sp=sp, out=off, vs=s + lin * sp, ve=e + lout * sp, vout=off + lin))
++        off += (e - s) / sp
+     return segs, off
+ 
+ 
+ def pieces(E, segs):
+     """split the picture at every join and SHOTS boundary -> [(out_start, out_end, src_start, framing)]"""
+-    total = segs[-1]["vout"] + (segs[-1]["ve"] - segs[-1]["vs"])
++    total = segs[-1]["vout"] + (segs[-1]["ve"] - segs[-1]["vs"]) / segs[-1]["sp"]
+     bounds = sorted(set([q(g["vout"]) for g in segs] + [q(t) for t, _ in E.SHOTS] + [q(total)]))
+     out = []
+     for a, b in zip(bounds, bounds[1:]):
+         g = [g for g in segs if q(g["vout"]) - 1e-6 <= a][-1]          # match on the frame-snapped join
+-        src = g["vs"] + (a - g["vout"])
++        src = g["vs"] + (a - g["vout"]) * g["sp"]
+         fr = [f for t, f in E.SHOTS if q(t) <= a + 1e-6][-1]
+-        out.append((a, b, src, fr))
++        out.append((a, b, src, fr, g["sp"]))
+     return out, total
+ 
+ 
+@@ -106,14 +108,14 @@
+     """picture source vs audio source at the start of every piece; returns the worst offset in seconds"""
+     worst = 0.0
+     rows = []
+-    for a, b, src, fr in pcs:
++    for a, b, src, fr, _sp in pcs:
+         g = [g for g in segs if g["out"] - 1e-6 <= a][-1]
+         gp = [g for g in segs if q(g["vout"]) - 1e-6 <= a][-1]          # the segment the picture comes from
+         note = ""
+         if gp is not g and gp["out"] - a <= max(gp["out"] - gp["vout"], 0) + 1.0 / FPS:
+             g, note = gp, "  (L-cut: picture a frame or two ahead of its line)"   # a lead under one frame or negative
+-        asrc = g["s"] + (a - g["out"])
+-        if a < segs[-1]["out"] + (segs[-1]["e"] - segs[-1]["s"]):      # only while someone is talking
++        asrc = g["s"] + (a - g["out"]) * g["sp"]
++        if a < segs[-1]["out"] + (segs[-1]["e"] - segs[-1]["s"]) / segs[-1]["sp"]:      # only while someone is talking
+             worst = max(worst, abs(src - asrc))
+         rows.append(f"  {a:8.3f}-{b:8.3f} {fr:6s} picture {src:8.3f}  audio {asrc:8.3f}  offset {src - asrc:+.3f}{note}")
+     return worst, rows
+@@ -139,13 +141,14 @@
+ 
+     # ---- picture: every piece cut straight from the 4K original, exact frame counts
+     parts = []
+-    for k, (a, b, src, fr) in enumerate(pcs):
++    for k, (a, b, src, fr, sp) in enumerate(pcs):
+         n = round((b - a) * FPS)
+         w, h, x, y = E.FRAMES[fr]
+         W, H = E.CANVAS
+         out = os.path.join(work, f"pic_{k:02d}.mp4")
++        tempo = f"setpts=(PTS-STARTPTS)/{sp:.4f}," if abs(sp - 1.0) > 1e-6 else ""
+         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{src - 0.3 / FPS:.4f}", "-i", E.SRC, "-an",   # a third of a frame early: lands ON the frame, not one late
+-                        "-vf", f"crop={w}:{h}:{x}:{y},scale={W}:{H}:flags=lanczos,fps={FPS},setsar=1",
++                        "-vf", f"crop={w}:{h}:{x}:{y},scale={W}:{H}:flags=lanczos,{tempo}fps={FPS},setsar=1",
+                         "-frames:v", str(n), "-c:v", "libx264", "-crf", "12", "-preset", "medium",
+                         "-pix_fmt", "yuv420p", out], check=True)
+         parts.append(out)
+@@ -160,9 +163,15 @@
+     # ---- voice: keep ranges with 20-30ms fades at each join, then the voice chain
+     fc, n = "", len(segs)
+     for i, g in enumerate(segs):
+-        d = g["e"] - g["s"]
+-        fc += (f"[0:a]atrim={g['s']:.4f}:{g['e']:.4f},asetpts=PTS-STARTPTS,"
+-               f"afade=t=in:d=0.02,afade=t=out:st={d - 0.03:.4f}:d=0.03[a{i}];")
++        d = (g["e"] - g["s"]) / g["sp"]
++        tin = i > 0 and abs(segs[i - 1]["e"] - g["s"]) <= 1e-4          # this piece touches the one before in the source
++        tout = i < n - 1 and abs(segs[i + 1]["s"] - g["e"]) <= 1e-4
++        sped_in = tin and (g["sp"] != 1.0 or segs[i - 1]["sp"] != 1.0)  # a speed change inside a word: a 6 ms fade, no dip
++        sped_out = tout and (g["sp"] != 1.0 or segs[i + 1]["sp"] != 1.0)
++        fi = "" if (tin and not sped_in) else (",afade=t=in:d=0.006" if sped_in else ",afade=t=in:d=0.02")
++        fo = "" if (tout and not sped_out) else (f",afade=t=out:st={d - 0.006:.4f}:d=0.006" if sped_out else f",afade=t=out:st={d - 0.03:.4f}:d=0.03")
++        tempo = f",atempo={g['sp']:.4f}" if g["sp"] != 1.0 else ""
++        fc += f"[0:a]atrim={g['s']:.4f}:{g['e']:.4f},asetpts=PTS-STARTPTS{tempo}{fi}{fo}[a{i}];"
+     fc += "".join(f"[a{i}]" for i in range(n)) + f"concat=n={n}:v=0:a=1[ac];"
+     # HPF 80, light denoise, -2 dB @250 (boxiness), +2 dB @3.2k (presence), 3:1 comp, limiter, -16 LUFS
+     fc += ("[ac]highpass=f=80,afftdn=nr=8:nf=-45,equalizer=f=250:t=q:w=1.2:g=-2,"
+@@ -175,10 +184,10 @@
+     reframes = [q(t) for t, _ in E.SHOTS[1:] if all(abs(q(t) - c) > 1e-6 for c in cuts)]
+     json.dump({"fps": FPS, "total_audio": round(total_audio, 4), "total": round(q(total), 4),
+                "keep": [dict(src_in=g["s"], src_out=g["e"], out=round(g["out"], 4),
+-                             picture_out=round(g["vout"], 4)) for g in segs],
++                             picture_out=round(g["vout"], 4), **({"speed": g["sp"]} if g["sp"] != 1.0 else {})) for g in segs],
+                "picture_cuts": cuts, "reframes": reframes,
+                "shots": [dict(t=q(t), frame=f) for t, f in E.SHOTS],
+-               "pieces": [dict(out_start=a, out_end=b, src=round(s, 4), frame=f) for a, b, s, f in pcs]},
++               "pieces": [dict(out_start=a, out_end=b, src=round(s, 4), frame=f, **({"speed": sp} if sp != 1.0 else {})) for a, b, s, f, sp in pcs]},
+               open(os.path.join(project, "timeline.json"), "w"), indent=1)
+     fr = subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
+                          "stream=nb_read_frames", "-of", "csv=p=0", os.path.join(assets, "aroll.mp4")],
+diff -ruN --exclude=patches --exclude=KIT.md --exclude=SKILL.md --exclude=__pycache__ --exclude=.DS_Store upstream/pipeline/fxsandbox.py b/pipeline/fxsandbox.py
+--- a/pipeline/fxsandbox.py	2026-10-10 20:44:00
++++ b/pipeline/fxsandbox.py	2026-10-11 22:10:58
+@@ -34,7 +34,8 @@
+         shutil.copy(os.path.join(project, "edit.py"), os.path.join(sb, "edit.py"))
+     for link, target in [(os.path.join(sb, "fx"), os.path.join(project, "fx")),
+                          (os.path.join(sb, "assets"), os.path.join(project, "assets")),
+-                         (os.path.join(sb, "audio"), os.path.join(project, "audio"))]:
++                         (os.path.join(sb, "audio"), os.path.join(project, "audio")),
++                         (os.path.join(sb, "style"), os.path.join(project, "style"))]:   # the project's own pack
+         if not os.path.lexists(link):
+             os.symlink(target, link)
+     for f in os.listdir(ppub):                     # heavy media and vendor: links; index.html and snapshots: own
+diff -ruN --exclude=patches --exclude=KIT.md --exclude=SKILL.md --exclude=__pycache__ --exclude=.DS_Store upstream/setup/setup.py b/setup/setup.py
+--- a/setup/setup.py	2026-10-10 20:44:00
++++ b/setup/setup.py	2026-10-13 16:17:04
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env python3
+ """Setup: checks what reel-kit needs on this computer and installs its own pieces. Safe to run again any time.
+ 
+-Run with any Python 3.10+:  python3 setup/setup.py [--check] [--matte]
++Run with Python 3.12+:  python3 setup/setup.py [--check] [--matte]
+   --check  report only, change nothing
+   --matte  also install PyTorch for pipeline/matte.py (smoother cutouts for lo-fi, about 1 GB)
+ 
+@@ -139,17 +139,20 @@
+                f"{' '.join(HF)} browser ensure, or point HYPERFRAMES_BROWSER_PATH at any Chrome or Chromium")
+ 
+ 
++MIN_MINOR = 12   # local change: the kit's build.py uses f-string syntax that only parses on Python 3.12+
++
++
+ def find_python():
+-    """this Python if it is 3.10+, else the newest python3.1x on PATH (or Homebrew's), else None"""
+-    if sys.version_info >= (3, 10):
++    """this Python if it is 3.12+, else the newest python3.1x on PATH (or Homebrew's), else None"""
++    if sys.version_info >= (3, MIN_MINOR):
+         return sys.executable
+-    names = ["python3.13", "python3.12", "python3.11", "python3.10"] + (["py"] if WIN else [])
++    names = ["python3.13", "python3.12"] + (["py"] if WIN else [])
+     extra = ["/opt/homebrew/bin/python3", "/usr/local/bin/python3"]
+     for c in [shutil.which(n) for n in names] + [p for p in extra if os.path.exists(p)]:
+         if not c:
+             continue
+         m = re.search(r"Python 3\.(\d+)", version_of([c, "--version"]))
+-        if m and int(m.group(1)) >= 10:
++        if m and int(m.group(1)) >= MIN_MINOR:
+             return c
+     return None
+ 
+@@ -163,7 +166,7 @@
+     if OS == "macos" and not shutil.which("brew"):
+         print("note: the macOS fixes below use Homebrew (https://brew.sh)", flush=True)
+ 
+-    # Python 3.10+ for the kit's environment (a stock Mac's python3 is 3.9: look for a newer one first)
++    # Python 3.12+ for the kit's environment (a stock Mac's python3 is 3.9: look for a newer one first)
+     base = find_python()
+     status("python", bool(base), (version_of([base, "--version"]) + f" ({base})") if base else platform.python_version(),
+            FIX["python"][OS])
+@@ -207,7 +210,9 @@
+     status("gsap", good, GSAP_VERSION, f"download {GSAP_URL} to {GSAP_PATH}")
+ 
+     # HyperFrames (renders the video in headless Chrome) and its Chrome
+-    if shutil.which("npx" if not WIN else "npx.cmd"):
++    if CHECK:   # local change: --check reports only, and npx would download HyperFrames
++        print("note: --check skips the render engine test (npx would download HyperFrames). Run setup without --check to test it.", flush=True)
++    elif shutil.which("npx" if not WIN else "npx.cmd"):
+         hv = version_of(HF + ["--version"])
+         status("hyperfrm", "0.8.139" in hv, "hyperframes 0.8.139",
+                FULL_ACCESS if SANDBOX else "check your internet connection, then run setup again")
+@@ -250,7 +255,7 @@
+     print(f"STATUS style      {'OK     ' if os.path.exists(pack) else 'NONE YET'} "
+           f"{pack if os.path.exists(pack) else 'the first video starts with onboarding (onboarding/ONBOARDING.md)'}",
+           flush=True)
+-    print("READY" if ok else "NOT READY: apply the fixes above, then run setup again", flush=True)
++    print(("READY" + (" so far (the render engine was not tested in --check mode)" if CHECK else "")) if ok else "NOT READY: apply the fixes above, then run setup again", flush=True)
+     sys.exit(0 if ok else 1)
+ 
+ 

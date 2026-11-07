@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reel Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&%%GF%%&display=swap">
+<style>
+:root{--bg:#f4f3f0;--surface:#fff;--ink:#1d1b19;--muted:#6a645e;--line:#e2ded8;--accent:#3d5afe;--accent-ink:#2a3fb8}
+@media (prefers-color-scheme:dark){:root{--bg:#141312;--surface:#1f1d1b;--ink:#f3f0ec;--muted:#b3aca4;--line:#34312d;--accent:#8c9eff;--accent-ink:#b4c0ff;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Inter Tight',system-ui,sans-serif;padding:0 clamp(16px,4vw,48px) 64px}
+header,main{max-width:1180px;margin:0 auto}
+header{padding-block:40px 8px}
+.eyebrow{font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 8px}
+h1{font:800 clamp(34px,6vw,60px)/1 'Inter Tight',sans-serif;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.lede{color:var(--muted);max-width:62ch;margin:12px 0 0}
+section{padding-top:36px}
+h2{font:800 24px 'Inter Tight',sans-serif;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}
+.media{aspect-ratio:9/16;background:#111}.media img{width:100%;height:100%;object-fit:cover;display:block}
+.body{padding:12px 14px 14px}.body b{font-weight:800;font-size:17px}.body p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+ul.plain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.role{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.fname{font-size:28px;line-height:1.1}
+ul.sw{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+ul.sw li{display:flex;flex-direction:column;gap:4px;font-size:13px}.sw{height:56px;border-radius:10px;border:1px solid var(--line)}code{color:var(--muted);font-size:12px}
+.bank{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.sfx{display:grid;grid-template-columns:40px 1fr;column-gap:10px;align-items:center;text-align:left;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font:inherit}
+.sfx:hover,.sfx:focus-visible{border-color:var(--accent);outline:none}
+.pl{grid-row:1/3;width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px}
+.sfx b{text-transform:capitalize}.sfx small{color:var(--muted);font-size:12px}
+.refs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.ref{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#111}.strip figure{margin:0;position:relative}
+.strip img{width:100%;aspect-ratio:9/16;object-fit:cover;display:block}
+.strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 6px 6px;font:600 11px/1.2 'Inter Tight',sans-serif;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75))}
+.rb{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px}.rb b{font-weight:800;font-size:17px}.rb i{font-style:normal;color:var(--accent-ink);font-weight:600;font-size:13px}
+.rb em{font-style:normal;font-size:12px;color:var(--muted)}.rb a{color:var(--accent-ink);font-weight:600;font-size:13px}
+ol.rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:70ch}
+</style></head><body>
+<header><p class="eyebrow">Reel design system</p><h1>%%NAME%%</h1>
+<p class="lede">Your look for every reel: how captions, titles and numbers appear, your fonts and colors, your sounds, and the reels it came from. The reel editor reads the settings file saved next to this page.</p></header>
+<main>
+<section><h2>Your look</h2><div class="grid">%%LOOKS%%</div></section>
+<section><h2>Fonts and colors</h2><div class="two"><div class="panel"><ul class="plain">%%FONTS%%</ul></div><div class="panel"><ul class="sw">%%SWATCHES%%</ul></div></div></section>
+<section><h2>Sounds</h2><div class="bank">%%SOUNDS%%</div></section>
+<section><h2>Where it came from</h2><div class="refs">%%REFS%%</div></section>
+<section><h2>Rules</h2><ol class="rules">%%RULES%%</ol></section>
+</main>
+<script>document.querySelectorAll('.sfx').forEach(b=>b.addEventListener('click',()=>{const a=document.getElementById('a-'+b.dataset.a);if(a){a.currentTime=0;a.play().catch(()=>{})}}))</script>
+</body></html>

@@ -23,12 +23,13 @@ Download the skill from its page on the site and follow the one-page guide there
 | `course-archive` | Saves any course or member community you pay for into local markdown: lessons, video links, files and an index | [Course Archive](https://farrisgreen.ai/skills/course-archive) |
 | `fga-ig-saves-sorter` | Turns your saved Instagram folders into lists you'll use | [IG Saves Sorter](https://farrisgreen.ai/skills/ig-saves-sorter) |
 | `fga-ig-reel` | FGA IG Reel Designer + Editor: builds your reel design system, then turns a raw video into a finished reel | [Reel Designer + Editor](https://farrisgreen.ai/skills/reel-editor) |
+| `fga-reel-studio` | FGA Reel Studio, the full reel editor: the Reel Designer + Editor steps plus the reel-kit lanes, one style folder and checks before every render. A Codex version is in `codex/fga-reel-studio/` | [Reel Studio](https://farrisgreen.ai/skills/reel-studio) |
 | `fga-chief-of-staff` | Interviews you, then builds your own AI chief of staff with its own files | [Chief of Staff](https://farrisgreen.ai/skills/chief-of-staff) |
-
-The full Reel Studio (Claude Code and Codex versions) is free from [farrisgreen.ai/skills/reel-studio](https://farrisgreen.ai/skills/reel-studio).
 
 ## Credits
 
 Sound Human builds on Siqi Chen's [Humanizer](https://github.com/blader/humanizer), MIT licence, kept in its folder.
+
+Reel Studio includes Justyn Berk's [reel-kit](https://github.com/justynberk/reel-kit), MIT licence. Its licence and credits travel inside the Reel Studio folder.
 
 Made by [Farris Green](https://farrisgreen.ai). Instagram [@fga.ai](https://www.instagram.com/fga.ai/).
