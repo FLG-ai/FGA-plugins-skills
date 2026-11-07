@@ -1,0 +1,92 @@
+// Paste into the Skool classroom tab via javascript_tool (Claude in Chrome).
+// Runs against the logged-in session. Enumerates every course the account can
+// actually open, pulls each lesson's body/video/resources, downloads one JSON.
+(() => {
+  const nd = window.__NEXT_DATA__;
+  const B = nd.buildId;
+  const G = nd.query.group;
+
+  const getRaw = async (slug, md) => {
+    let u = `/_next/data/${B}/${G}/classroom/${slug}.json?group=${G}&course=${slug}`;
+    if (md) u += `&md=${md}`;
+    const r = await fetch(u, { headers: { 'x-nextjs-data': '1' } });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return (await r.json()).pageProps;
+  };
+
+  // A bare course URL 307s to its first lesson; follow it to get the tree.
+  const get = async (slug, md) => {
+    let pp = await getRaw(slug, md);
+    if (pp.__N_REDIRECT) {
+      const q = new URL(pp.__N_REDIRECT, location.origin).searchParams;
+      pp = await getRaw(slug, q.get('md'));
+    }
+    return pp;
+  };
+
+  const flat = (root) => {
+    const out = [];
+    (function w(n, d) {
+      if (!n) return;
+      if (n.course) out.push({ depth: d, id: n.course.id, title: n.course.metadata?.title || '' });
+      (n.children || []).forEach(x => w(x, d + 1));
+    })(root, 0);
+    return out;
+  };
+
+  const find = (root, id) => {
+    let hit = null;
+    (function w(n) {
+      if (!n || hit) return;
+      if (n.course && n.course.id === id) { hit = n.course; return; }
+      (n.children || []).forEach(w);
+    })(root);
+    return hit;
+  };
+
+  window.__skool = { done: false, progress: '', result: null, error: null };
+  const P = window.__skool;
+
+  (async () => {
+    try {
+      const all = nd.props.pageProps.allCourses || [];
+      // hasAccess is the reliable gate. lockFreeTrial marks the ones still behind the trial.
+      const open = all.filter(c => c.metadata?.hasAccess);
+      const skipped = all.filter(c => !c.metadata?.hasAccess).map(c => c.metadata?.title);
+      const courses = [];
+      for (let ci = 0; ci < open.length; ci++) {
+        const c = open[ci];
+        const slug = c.name, title = c.metadata.title;
+        const nodes = flat((await get(slug)).course).filter(n => n.depth > 0);
+        const items = [];
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i];
+          P.progress = `${title}: ${i + 1}/${nodes.length}`;
+          try {
+            const m = find((await get(slug, n.id)).course, n.id)?.metadata || {};
+            items.push({
+              id: n.id, depth: n.depth, title: m.title || n.title,
+              video: m.videoLink || null, videoMs: m.videoLenMs || null,
+              resources: m.resources || null, desc: m.desc || null
+            });
+          } catch (e) {
+            // Section headers have no lesson payload and 400 here. Expected.
+            items.push({ id: n.id, depth: n.depth, title: n.title, error: String(e) });
+          }
+          await new Promise(r => setTimeout(r, 250));
+        }
+        courses.push({ slug, title, order: ci + 1, items });
+      }
+      const data = { group: G, pulledAt: new Date().toISOString(), skipped, courses };
+      P.result = { courses: courses.map(c => ({ title: c.title, items: c.items.length })), skipped };
+
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
+      a.download = `skool-${G}.json`;
+      document.body.appendChild(a); a.click(); a.remove();
+      P.done = true;
+    } catch (e) { P.error = String(e); P.done = true; }
+  })();
+
+  return 'started — poll window.__skool';
+})()

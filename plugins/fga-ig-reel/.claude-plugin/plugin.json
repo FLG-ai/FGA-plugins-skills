@@ -1,0 +1,7 @@
+{
+  "name": "fga-ig-reel",
+  "displayName": "FGA IG Reel Designer + Editor",
+  "version": "0.1.0",
+  "description": "Build your own reel design system from the reels you love, then turn a raw talking-to-camera video into a finished, captioned Instagram Reel and cover in that look. Runs on your Mac.",
+  "author": { "name": "Farris Green", "url": "https://farrisgreen.ai" }
+}

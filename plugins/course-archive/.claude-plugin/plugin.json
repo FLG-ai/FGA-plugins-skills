@@ -1,0 +1,6 @@
+{
+  "name": "course-archive",
+  "version": "1.0.0",
+  "description": "Saves any course or member community you pay for into local markdown: every lesson, video link and file, plus an index.",
+  "author": { "name": "Farris Green", "url": "https://farrisgreen.ai" }
+}

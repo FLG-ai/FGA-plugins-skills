@@ -1,0 +1,12 @@
+{
+  "name": "fga-plugins-skills",
+  "owner": { "name": "Farris Green", "url": "https://farrisgreen.ai" },
+  "description": "Farris Green's free Claude skills and plugins, the same ones on farrisgreen.ai/skills.",
+  "plugins": [
+    { "name": "sound-human", "source": "./plugins/sound-human", "description": "Writing that never sounds machine-made, with a draft audit." },
+    { "name": "course-archive", "source": "./plugins/course-archive", "description": "Saves any course or member community you pay for into local markdown." },
+    { "name": "fga-ig-saves-sorter", "source": "./plugins/fga-ig-saves-sorter", "description": "Turns your saved Instagram folders into lists you will use." },
+    { "name": "fga-ig-reel", "source": "./plugins/fga-ig-reel", "description": "FGA IG Reel Designer + Editor: your reel design system, then raw video to finished reel." },
+    { "name": "fga-chief-of-staff", "source": "./plugins/fga-chief-of-staff", "description": "Builds your own AI chief of staff as an agent with its own files." }
+  ]
+}

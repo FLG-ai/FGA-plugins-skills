@@ -1,0 +1,6 @@
+{
+  "name": "fga-chief-of-staff",
+  "version": "1.0.0",
+  "description": "Interviews you, then builds your own AI chief of staff as an agent with its own files.",
+  "author": { "name": "Farris Green", "url": "https://farrisgreen.ai" }
+}
