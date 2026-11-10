@@ -1,0 +1,32 @@
+<!-- keycaps (top): editing-shortcut keycaps rain in on the speaker's words with real gravity, pile up on a heightmap
+     (each lands on the highest thing under it, so they really heap), bounce once, then a push broom sweeps left to
+     right and flings each key off as its edge reaches it. The keys are built by fx.js from KEYS; every colour and
+     font is a token. -->
+<div class="kc-keys"></div>
+<svg class="kc-broom" width="360" height="900" viewBox="0 0 360 900">
+  <path class="kc-handle" d="M268 470 L-40 -60"/>
+  <rect class="kc-head" x="238" y="250" width="40" height="560" rx="10"/>
+  <g class="kc-bris"><path d="M278 258 h42"/><path d="M278 266 h33"/><path d="M278 274 h37"/><path d="M278 282 h41"/><path d="M278 290 h32"/><path d="M278 298 h36"/><path d="M278 306 h40"/><path d="M278 314 h31"/><path d="M278 322 h35"/><path d="M278 330 h39"/><path d="M278 338 h30"/><path d="M278 346 h34"/><path d="M278 354 h38"/><path d="M278 362 h42"/><path d="M278 370 h33"/><path d="M278 378 h37"/><path d="M278 386 h41"/><path d="M278 394 h32"/><path d="M278 402 h36"/><path d="M278 410 h40"/><path d="M278 418 h31"/><path d="M278 426 h35"/><path d="M278 434 h39"/><path d="M278 442 h30"/><path d="M278 450 h34"/><path d="M278 458 h38"/><path d="M278 466 h42"/><path d="M278 474 h33"/><path d="M278 482 h37"/><path d="M278 490 h41"/><path d="M278 498 h32"/><path d="M278 506 h36"/><path d="M278 514 h40"/><path d="M278 522 h31"/><path d="M278 530 h35"/><path d="M278 538 h39"/><path d="M278 546 h30"/><path d="M278 554 h34"/><path d="M278 562 h38"/><path d="M278 570 h42"/><path d="M278 578 h33"/><path d="M278 586 h37"/><path d="M278 594 h41"/><path d="M278 602 h32"/><path d="M278 610 h36"/><path d="M278 618 h40"/><path d="M278 626 h31"/><path d="M278 634 h35"/><path d="M278 642 h39"/><path d="M278 650 h30"/><path d="M278 658 h34"/><path d="M278 666 h38"/><path d="M278 674 h42"/><path d="M278 682 h33"/><path d="M278 690 h37"/><path d="M278 698 h41"/><path d="M278 706 h32"/><path d="M278 714 h36"/><path d="M278 722 h40"/><path d="M278 730 h31"/><path d="M278 738 h35"/><path d="M278 746 h39"/><path d="M278 754 h30"/><path d="M278 762 h34"/><path d="M278 770 h38"/><path d="M278 778 h42"/><path d="M278 786 h33"/><path d="M278 794 h37"/><path d="M278 802 h41"/></g>
+</svg>
+<style>
+#{{ID}} .kc-keys { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}} .kc-k { position:absolute; top:0; height:120px; border-radius:min(19px, calc(var(--radius) * 3));
+  background:color-mix(in srgb, var(--c-light) 80%, var(--c-ink));
+  box-shadow:0 6px 14px color-mix(in srgb, var(--c-dark) 34%, transparent), 0 1px 2px color-mix(in srgb, var(--c-dark) 24%, transparent);
+  transform-origin:50% 50%; }
+#{{ID}} .kc-f { position:absolute; left:8px; right:8px; top:5px; bottom:17px; border-radius:min(14px, calc(var(--radius) * 2.3));
+  background:var(--c-light); }
+#{{ID}} .kc-f b { position:absolute; left:0; right:0; top:15px; text-align:center; font-family:var(--font-text); font-weight:600;
+  font-size:48px; line-height:1; letter-spacing:-.01em; color:var(--c-ink); white-space:nowrap; }
+#{{ID}} .kc-f b.kc-s { font-size:38px; top:20px; }
+#{{ID}} .kc-f i { position:absolute; left:0; right:0; bottom:11px; text-align:center; font-family:var(--font-mono); font-weight:600;
+  font-size:15px; line-height:1; font-style:normal; letter-spacing:.08em; color:var(--c-muted-light); white-space:nowrap; }
+#{{ID}} .kc-d { background:var(--c-dark); }
+#{{ID}} .kc-d .kc-f { background:color-mix(in srgb, var(--c-dark) 86%, var(--c-light)); }
+#{{ID}} .kc-d .kc-f b { color:var(--c-light); }
+#{{ID}} .kc-d .kc-f i { color:var(--c-muted-dark); }
+#{{ID}} .kc-broom { position:absolute; left:0; top:0; overflow:visible; }
+#{{ID}} .kc-handle { stroke:var(--c-accent); stroke-width:16; stroke-linecap:round; fill:none; }
+#{{ID}} .kc-head { fill:var(--c-dark); }
+#{{ID}} .kc-bris path { stroke:var(--c-accent); stroke-width:5; stroke-linecap:butt; fill:none; }
+</style>

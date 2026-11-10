@@ -3,3 +3,7 @@ scipy>=1.11
 pillow>=10.0
 faster-whisper>=1.0
 yt-dlp
+opencv-python-headless>=4.9
+onnxruntime>=1.17
+fonttools>=4.40
+pymunk>=7.0

@@ -17,8 +17,8 @@ documents and screenshots, scans of real objects, and what the creator sends (B-
 is the design. If a beat can be told with type and a hairline chart, it is.
 
 Generated imagery (only when the creator has a generator connected) is the exception, for a beat that needs an
-image nothing real can give: objects, places and textures that look shot. Never generated people, portrait walls or
-generated B-roll as the look of the video. Every generated asset is made before the storyboard and tagged there,
+image nothing real can give: people, places, objects and textures that look shot. Never generated B-roll as the
+look of the video. Every generated asset is made before the storyboard and tagged there,
 so the creator can cut it before anything renders.
 
 ## Edit
@@ -88,7 +88,7 @@ the source itself, and a mono tag ("2030 →").
   (±0.05s). One slow camera push per card, frame 0 already complete.
 - Content in x 70-1010, y 250-1150; the caption band y 1170-1430 stays empty; nothing to read below y 1470.
 - Real artifacts welcome inside cards: screenshots of the source, scans of real objects.
-- The patterns to start from are in `cards/LIBRARY.md`; the build contract is `kit/CARD_BRIEF.md`.
+- The patterns to start from are in `cards/LIBRARY.md` and the creator's own `HOME/cards/LIBRARY.md`; the build contract is `kit/CARD_BRIEF.md`.
 
 ## End card
 Off by default. Only when the creator asks: the closing line in the display face, the source line, their handle

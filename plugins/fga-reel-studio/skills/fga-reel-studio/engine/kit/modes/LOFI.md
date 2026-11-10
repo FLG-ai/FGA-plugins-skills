@@ -24,7 +24,7 @@ photos). Restraint is still the design: one thing on screen at a time, on its wo
 - No settles, no slow pushes. Hard zooms instead: `CAMERA.zooms = [(start, end, scale)]`, in hard and out hard on
   the phrase that matters. Keep the total under ~1.4x (CLOSE 1.25 x zoom 1.12) or it goes soft.
 - One black-and-white beat on the turn or the heaviest line, at most.
-- Cutout: `pipeline/cutout.py` works; `pipeline/matte.py` (optional, `setup.py --matte`) gives smoother edges and
+- Cutout: `pipeline/cutout.py` works; `pipeline/matte.py` (optional, `sh setup/setup.sh --matte`) gives smoother edges and
   is worth it when things sit behind the speaker a lot. Anything that starts or ends near a cut goes ON the cut.
 - Pace (style.json `motion`): calm = an overlay or swap every 6-8s; normal = every 4-5s; punchy = every 2-3s
   plus a hard zoom on every key phrase.

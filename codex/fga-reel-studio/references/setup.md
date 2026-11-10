@@ -40,6 +40,8 @@ Run `python3 "$KIT/setup/setup.py" --check` first. It reports only. Then `python
 |---|---|---|---|
 | Smoother cutouts (RVM matte) | Softer hair edges when type sits behind the head | `python3 "$KIT/setup/setup.py" --matte` (PyTorch, then the model) | about 1 GB plus about 100 MB. The model is GPL-3.0: for their own use, never bundle it |
 | HyperFrames background removal | The default cutout | Downloads the first time a cutout runs | about 380 MB |
+| Face and hand tracking | The 27 effects added in kit 1.2.0 that sit in the room (press-front, paper-tear, blade-slice, live-cursor and others) | `python3 "$KIT/setup/setup.py" --track`, or by itself the first time one is picked | about 400 MB, once |
+| Depth model | The same effects, for what is in front of and behind the speaker | `python3 "$KIT/setup/setup.py" --depth`, or on first use | about 100 MB, once |
 | yt-dlp | Downloading reel links to study them | Already in the kit's environment | Only with a yes, naming the link, the file and the size. Instagram usually needs a login, so ask them to save the reel and send the file |
 | Extra Google Fonts | The fonts in their style | `style.py` fetches them | a few MB, free licence |
 
@@ -69,4 +71,6 @@ Use local Codex, in the Codex app or CLI. Quick needs macOS. Linux support remai
 
 The library ships as ordinary files. `bridge/unpack.sh` is a read-only check retained for compatibility. It checks each path in `bridge/library-files.txt`.
 
-Full setup writes `.setup-complete-0.3.3` only after its dependency, model and render checks pass. The installer also runs the read-only setup checks before treating a previous full setup as complete. If a tool or browser later stops working, run setup again after approval and review its output.
+Full setup writes `.setup-complete-0.4.0` only after its dependency, model and render checks pass. The installer also runs the read-only setup checks before treating a previous full setup as complete. If a tool or browser later stops working, run setup again after approval and review its output.
+
+**Effects that want the empty room.** Five of the new effects (`dolly-zoom`, `blow-away`, `live-cursor`, `layer-explode`, `room-doors`) need a locked-off camera and about 5 seconds of the empty room at the end of the take: the creator walks out of frame and lets it record. If the take doesn't have it, the storyboard asks for a photo or clip of the background, or offers to generate one. Ask first; never generate without a yes.

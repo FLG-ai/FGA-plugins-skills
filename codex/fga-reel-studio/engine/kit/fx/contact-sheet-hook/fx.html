@@ -1,0 +1,64 @@
+<!-- contact-sheet-hook (cam, above the main picture). The hook: the opener (two lines in the display face) sits over
+     the live shot from frame 0 (the thumbnail). On the shrink word the shot shrinks into cell 01 of a one-second
+     contact sheet on the creator's dark ground (6x5, frame numbers in the mono face) while a title sets word by word
+     above it; then the sheet exposes one cell per frame, an accent cursor walking it, so it fills in exactly one real
+     second of this video (each still is the frame playing at that moment); on the last cell the sheet dives into it
+     and lands full frame on the drop, where the payoff slams in over the live shot. Type over the footage splits
+     light/ink by a per-frame mask of the picture under the band (masks.png). cells.jpg, masks.png and fx.js's GEN
+     line come from gen.py; fx.js builds the cells and the copies. The live copy starts a frame after A (it is only
+     needed from the shrink on; a copy starting on frame 0 trips the media lint). -->
+<div id="{{ID}}-field"></div>
+<div id="{{ID}}-sheet" data-layout-allow-overlap>
+  <div id="{{ID}}-cells" data-layout-allow-overlap></div>
+  <div id="{{ID}}-cur"></div>
+  <div id="{{ID}}-live" data-layout-allow-overlap><video id="{{ID}}-v" class="g" src="clean.mp4" muted playsinline data-start="{{START+0.033}}" data-media-start="{{SYNC+0.033}}" data-duration="{{DUR-0.033}}" data-track-index="{{T0}}"></video></div>
+  <div class="{{ID}}-tl" id="{{ID}}-ta" data-layout-allow-overlap></div>
+  <div class="{{ID}}-tl" id="{{ID}}-tb" data-layout-allow-overlap></div>
+</div>
+<div id="{{ID}}-band" data-layout-allow-overlap>
+  <div id="{{ID}}-lt" class="{{ID}}-cp" data-layout-allow-overlap>
+    <div class="{{ID}}-op" data-layout-allow-overflow><div class="{{ID}}-o1"><span class="{{ID}}-t"></span></div><div class="{{ID}}-o2"><span class="{{ID}}-t"></span></div></div>
+    <div class="{{ID}}-py" data-layout-allow-overflow><span class="{{ID}}-t"><span class="{{ID}}-p1"></span><span class="{{ID}}-p2"></span></span></div>
+  </div>
+  <div id="{{ID}}-dk0" class="{{ID}}-cp {{ID}}-dk" data-layout-allow-overlap>
+    <div class="{{ID}}-op" data-layout-allow-overflow><div class="{{ID}}-o1"><span class="{{ID}}-t"></span></div><div class="{{ID}}-o2"><span class="{{ID}}-t"></span></div></div>
+    <div class="{{ID}}-py" data-layout-allow-overflow><span class="{{ID}}-t"><span class="{{ID}}-p1"></span><span class="{{ID}}-p2"></span></span></div>
+  </div>
+</div>
+<style>
+#{{ID}}-field { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); }
+#{{ID}}-sheet { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}} .{{ID}}-tl { position:absolute; left:0; top:226px; width:1080px; height:150px; overflow:hidden; text-align:center;
+  white-space:nowrap; font-family:var(--font-display); font-style:var(--display-style); font-weight:var(--display-weight);
+  font-size:130px; line-height:150px; letter-spacing:-0.01em; color:var(--c-light); }
+#{{ID}} .{{ID}}-w { display:inline-block; }
+#{{ID}} .{{ID}}-cell { position:absolute; width:154px; height:205px; overflow:hidden;
+  background:color-mix(in srgb, var(--c-light) 6%, var(--c-dark)); box-shadow:inset 0 0 0 1px var(--c-hair-dark); }
+#{{ID}} .{{ID}}-n { position:absolute; left:0; top:0; width:154px; height:205px; line-height:205px; text-align:center;
+  font-family:var(--font-mono); font-weight:500; font-size:30px; color:var(--c-muted-dark); letter-spacing:0.02em; }
+#{{ID}} .{{ID}}-im { position:absolute; left:0; top:0; width:154px; height:205px; background-image:url(fx/{{ID}}/cells.jpg);
+  background-size:924px 1025px; background-repeat:no-repeat; }
+#{{ID}} .{{ID}}-tab { position:absolute; left:0; bottom:0; padding:3px 7px 4px 6px; background:var(--c-dark); font-family:var(--font-mono);
+  font-weight:500; font-size:15px; line-height:15px; color:var(--c-light); letter-spacing:0.03em; }
+#{{ID}}-cur { position:absolute; left:48px; top:395px; width:164px; height:215px; box-sizing:border-box; border:3px solid var(--c-accent); }
+#{{ID}}-live { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; }
+#{{ID}}-v { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
+#{{ID}}-band { position:absolute; left:0; top:200px; width:1080px; height:560px; }
+#{{ID}} .{{ID}}-cp { position:absolute; left:0; top:0; width:1080px; height:560px; }
+#{{ID}} .{{ID}}-dk { -webkit-mask-image:url(fx/{{ID}}/masks.png); mask-image:url(fx/{{ID}}/masks.png);
+  -webkit-mask-size:8640px auto; mask-size:8640px auto; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:0 0; mask-position:0 0; }
+#{{ID}} .{{ID}}-op { position:absolute; left:0; top:12px; width:1080px; display:flex; flex-direction:column; align-items:center;
+  transform-origin:50% 84%; }
+#{{ID}} .{{ID}}-o1, #{{ID}} .{{ID}}-o2, #{{ID}} .{{ID}}-py { width:1080px; text-align:center; white-space:nowrap;
+  font-family:var(--font-display); font-style:var(--display-style); font-weight:var(--display-weight);
+  line-height:0.9; letter-spacing:-0.02em; color:var(--c-light); }
+#{{ID}} .{{ID}}-o1 { font-size:200px; }
+#{{ID}} .{{ID}}-o2 { font-size:360px; }
+#{{ID}} .{{ID}}-py { position:absolute; left:0; top:71px; font-size:210px; line-height:1; }
+#{{ID}} .{{ID}}-t { display:inline-block; white-space:nowrap; }
+#{{ID}} .{{ID}}-p1, #{{ID}} .{{ID}}-p2 { display:inline-block; transform-origin:50% 84%; }
+#{{ID}} .{{ID}}-p2 { margin-left:0.22em; color:var(--c-accent); }
+#{{ID}} .{{ID}}-dk .{{ID}}-o1, #{{ID}} .{{ID}}-dk .{{ID}}-o2, #{{ID}} .{{ID}}-dk .{{ID}}-py,
+#{{ID}} .{{ID}}-dk .{{ID}}-p2 { color:var(--c-ink); }
+</style>

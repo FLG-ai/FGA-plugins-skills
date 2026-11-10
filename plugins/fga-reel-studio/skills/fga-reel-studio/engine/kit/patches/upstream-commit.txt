@@ -1,1 +1,1 @@
-99fbb0fa47651adb37f6c1c7a473125ac1f65ebf
+reel-kit-plugin-1.2.0.zip (The AI Dojo, 10 Nov 2026), previously commit 99fbb0fa47651adb37f6c1c7a473125ac1f65ebf (1.0).

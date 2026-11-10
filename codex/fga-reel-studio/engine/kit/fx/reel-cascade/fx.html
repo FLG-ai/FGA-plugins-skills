@@ -1,0 +1,58 @@
+<!-- reel-cascade (behind the head): "my best videos drop in behind me". The room dims, then eight of the creator's
+     own videos fly in OUT OF DEPTH: each starts far back near the vanishing point behind the head (small, tumbling,
+     fogged dark, out of focus) and comes forward into one wall plane behind the speaker (4 x 2 tiles, 9:16), each
+     landing on a word with a contact shadow and a jolt through the wall. At the end of the line they recede back
+     into depth, last in first out, and the room comes back up. Stage = CSS perspective (its origin on the head),
+     wall = a preserve-3d group (the jolt), tiles = 3D transforms. Tile positions, words and times live in fx.js.
+     The clips t1.mp4 .. t8.mp4 come from mkclips.py next to this file: your videos with --from, placeholder
+     stretches of the project's own clean.mp4 without (labelled by PLACEHOLDER in fx.js). -->
+<div id="{{ID}}-veil"></div>
+<div id="{{ID}}-stage" data-layout-allow-overflow><div id="{{ID}}-wall" data-layout-allow-overflow>
+  <div class="{{ID}}-t" id="{{ID}}-t1"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v1" class="{{ID}}-v" src="fx/{{ID}}/t1.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T0}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+  <div class="{{ID}}-t" id="{{ID}}-t2"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v2" class="{{ID}}-v" src="fx/{{ID}}/t2.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T1}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+  <div class="{{ID}}-t" id="{{ID}}-t3"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v3" class="{{ID}}-v" src="fx/{{ID}}/t3.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T2}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+  <div class="{{ID}}-t" id="{{ID}}-t4"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v4" class="{{ID}}-v" src="fx/{{ID}}/t4.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T3}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+  <div class="{{ID}}-t" id="{{ID}}-t5"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v5" class="{{ID}}-v" src="fx/{{ID}}/t5.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T4}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+  <div class="{{ID}}-t" id="{{ID}}-t6"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v6" class="{{ID}}-v" src="fx/{{ID}}/t6.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T5}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+  <div class="{{ID}}-t" id="{{ID}}-t7"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v7" class="{{ID}}-v" src="fx/{{ID}}/t7.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T6}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+  <div class="{{ID}}-t" id="{{ID}}-t8"><div class="{{ID}}-sh"></div><div class="{{ID}}-f">
+    <video id="{{ID}}-v8" class="{{ID}}-v" src="fx/{{ID}}/t8.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T7}}"></video>
+    <span class="{{ID}}-tag"></span><div class="{{ID}}-fog"></div>
+  </div></div>
+</div></div>
+<style>
+#{{ID}}-veil { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); }
+#{{ID}}-stage { position:absolute; left:0; top:0; width:1080px; height:1920px; perspective:1100px; }
+#{{ID}}-wall { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-style:preserve-3d; }
+#{{ID}} .{{ID}}-t { position:absolute; left:0; top:0; width:216px; height:384px; backface-visibility:hidden; }
+#{{ID}} .{{ID}}-sh { position:absolute; left:0; top:0; width:100%; height:100%; border-radius:var(--radius);
+  box-shadow:0 16px 34px color-mix(in srgb, var(--c-dark) 46%, transparent); }
+#{{ID}} .{{ID}}-f { position:absolute; left:0; top:0; width:100%; height:100%; border-radius:var(--radius); overflow:hidden;
+  background:var(--c-dark); border:3px solid var(--c-light); box-sizing:border-box; }
+#{{ID}} .{{ID}}-v { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; display:block; }
+#{{ID}} .{{ID}}-tag { position:absolute; left:10px; top:10px; padding:5px 7px 4px; border-radius:calc(var(--radius) * .66);
+  background:color-mix(in srgb, var(--c-dark) 78%, transparent); color:var(--c-light); font:500 14px/1 var(--font-mono);
+  letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+#{{ID}} .{{ID}}-fog { position:absolute; left:0; top:0; width:100%; height:100%; background:var(--c-dark); }
+</style>

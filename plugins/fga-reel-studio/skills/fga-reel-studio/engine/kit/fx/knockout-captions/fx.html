@@ -1,0 +1,29 @@
+<!-- knockout-captions (over everything): the captions grow. Each word arrives as the creator's own caption box, every
+     one bigger than the last, pushing the earlier ones up the frame. On the key word the frame goes to the light ground
+     and the giant word fills it as a knockout: cut out of a light plate, so the live footage plays through the letters.
+     The knockout is live (an SVG mask with the word in the pack's display face), so nothing is generated. Give the
+     window a KARAOKE hide so the normal captions step aside. Words, cue words and sizes live in fx.js. -->
+<div id="{{ID}}-st" data-layout-allow-overlap></div>
+<div id="{{ID}}-plate" data-layout-allow-overlap>
+  <svg id="{{ID}}-svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+    <defs>
+      <mask id="{{ID}}-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920">
+        <rect x="-200" y="-200" width="1480" height="2320" class="{{ID}}-on"/>
+        <g id="{{ID}}-word"></g>
+      </mask>
+    </defs>
+    <rect id="{{ID}}-fill" x="-200" y="-200" width="1480" height="2320" mask="url(#{{ID}}-mask)"/>
+  </svg>
+</div>
+<style>
+#{{ID}}-st { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}} .{{ID}}-row { position:absolute; left:0; width:1080px; display:flex; justify-content:center; }
+#{{ID}} .{{ID}}-k { display:flex; align-items:center; white-space:nowrap; font-family:var(--font-caption);
+  font-style:var(--caption-style); font-weight:var(--caption-weight); letter-spacing:-0.01em; color:var(--c-box-ink);
+  background:var(--c-box); border-radius:var(--radius); transform-origin:50% 100%; box-sizing:border-box; }
+#{{ID}}-plate { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:visible; }
+#{{ID}}-svg { position:absolute; left:0; top:0; overflow:visible; }
+#{{ID}} .{{ID}}-on { fill:white; }
+#{{ID}} .{{ID}}-cut { fill:black; font-family:var(--font-display); font-style:var(--display-style); font-weight:var(--display-weight); }
+#{{ID}}-fill { fill:var(--c-light); }
+</style>

@@ -1,0 +1,49 @@
+<!-- eyedropper-grade: an eyedropper taps real colours off the shot, each pops into a palette card with its hex; on
+     each word of the line the picture steps darker (edit.GRADES) and every chip steps with it (gen.py runs each
+     sampled pixel through the same filter, so a chip is what the grade does to that colour), a notch in the card's
+     header fills per step; grain comes up on the last step. The card leaves before B. The rows and every time:
+     fx.js (CHIPS / STEPS are written by gen.py). grain.png comes from make_grain.py. -->
+<div id="{{ID}}-grain" data-layout-allow-overflow data-layout-allow-overlap data-layout-allow-occlusion><div id="{{ID}}-gt" data-layout-allow-overflow style="background-image:url(fx/{{ID}}/grain.png)"></div></div>
+<div id="{{ID}}-rail">
+  <div class="{{ID}}-head"><span id="{{ID}}-title" data-layout-allow-overlap></span><span id="{{ID}}-notches" class="{{ID}}-notches"></span></div>
+  <div id="{{ID}}-rows"></div>
+</div>
+<div id="{{ID}}-ring"></div>
+<svg id="{{ID}}-drop" width="140" height="140" viewBox="0 0 140 140" aria-hidden="true">
+  <g transform="translate(24 116) rotate(42) scale(1.3)">
+    <g class="{{ID}}-halo">
+      <path d="M-2 0 L2 0 L5.5 -15 L-5.5 -15 Z"/><rect x="-7" y="-56" width="14" height="42" rx="2.5"/>
+      <rect x="-11" y="-65" width="22" height="10" rx="2.5"/><rect x="-10" y="-98" width="20" height="34" rx="10"/>
+    </g>
+    <path class="{{ID}}-dk" d="M-2 0 L2 0 L5.5 -15 L-5.5 -15 Z"/>
+    <rect class="{{ID}}-glass" x="-7" y="-56" width="14" height="42" rx="2.5"/>
+    <rect id="{{ID}}-liq" x="-3.5" y="-36" width="7" height="19" rx="1"/>
+    <rect class="{{ID}}-dk" x="-11" y="-65" width="22" height="10" rx="2.5"/>
+    <rect class="{{ID}}-dk" x="-10" y="-98" width="20" height="34" rx="10"/>
+    <rect class="{{ID}}-shine" x="-4" y="-92" width="3" height="20" rx="1.5"/>
+  </g>
+</svg>
+<style>
+#{{ID}}-grain { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; mix-blend-mode:overlay; opacity:0; }
+#{{ID}}-gt { position:absolute; left:0; top:0; width:1592px; height:2432px; background-repeat:repeat; background-size:512px 512px; }
+#{{ID}}-rail { position:absolute; left:0; top:0; width:214px; border-radius:calc(var(--radius) * 2); background:var(--c-light);
+  box-shadow:0 14px 30px color-mix(in srgb, var(--c-dark) 28%, transparent), 0 2px 6px color-mix(in srgb, var(--c-dark) 18%, transparent); }
+#{{ID}} .{{ID}}-head { position:absolute; left:18px; top:15px; width:178px; height:14px; display:flex; justify-content:space-between; align-items:center;
+  font:500 11.5px/1 var(--font-mono); letter-spacing:.16em; color:var(--c-muted-light); text-transform:uppercase; white-space:nowrap; }
+#{{ID}} .{{ID}}-notches { display:flex; gap:5px; }
+#{{ID}} .{{ID}}-notch { position:relative; display:block; width:12px; height:6px; border-radius:3px; border:1.5px solid var(--c-muted-light); box-sizing:border-box; overflow:hidden; }
+#{{ID}} .{{ID}}-notch b { position:absolute; left:-2px; top:-2px; width:14px; height:8px; background:var(--c-ink); opacity:0; }
+#{{ID}} .{{ID}}-row { position:absolute; left:0; width:214px; height:76px; }
+#{{ID}} .{{ID}}-slot { position:absolute; left:16px; top:8px; width:56px; height:56px; border-radius:var(--radius); border:1.5px dashed var(--c-hair-light); box-sizing:border-box; }
+#{{ID}} .{{ID}}-chip { position:absolute; left:16px; top:8px; width:56px; height:56px; border-radius:var(--radius); box-shadow:inset 0 0 0 1px var(--c-hair-light); }
+#{{ID}} .{{ID}}-hexc { position:absolute; left:86px; top:13px; width:112px; height:26px; overflow:hidden; }
+#{{ID}} .{{ID}}-hex { font:500 19px/26px var(--font-mono); letter-spacing:.02em; color:var(--c-ink); white-space:nowrap; }
+#{{ID}} .{{ID}}-lab { position:absolute; left:87px; top:42px; font:500 11px/1 var(--font-mono); letter-spacing:.16em; color:var(--c-muted-light); text-transform:uppercase; white-space:nowrap; }
+#{{ID}}-ring { position:absolute; left:0; top:0; width:72px; height:72px; border-radius:36px; border:5px solid var(--c-light); box-sizing:border-box;
+  box-shadow:0 0 0 1.5px var(--c-ink), 0 6px 14px color-mix(in srgb, var(--c-dark) 25%, transparent); }
+#{{ID}}-drop { position:absolute; left:0; top:0; overflow:visible; }
+#{{ID}} .{{ID}}-halo { fill:var(--c-light); stroke:var(--c-light); stroke-width:7; stroke-linejoin:round; }
+#{{ID}} .{{ID}}-dk { fill:var(--c-ink); }
+#{{ID}} .{{ID}}-glass { fill:var(--c-light); stroke:var(--c-ink); stroke-width:3; }
+#{{ID}} .{{ID}}-shine { fill:var(--c-light); opacity:.35; }
+</style>

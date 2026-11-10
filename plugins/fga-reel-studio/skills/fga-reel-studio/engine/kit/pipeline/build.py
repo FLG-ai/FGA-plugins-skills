@@ -159,6 +159,7 @@ def karaoke(E):
         t0 = ln[0]["start"]
         nxt = L[i + 1][0]["start"] if i + 1 < len(L) else E.TOTAL
         t1 = nxt if nxt - ln[-1]["end"] < 0.6 else min(nxt, ln[-1]["end"] + 0.3)
+        t1 = min([t1] + [a for a, b in hide if t0 < a < t1])        # a hide window also ends the line before it
         spans = " ".join(f'<span class="k" id="kc{i}_{j}">{w["text"]}</span>' for j, w in enumerate(ln))
         cls = "kc huge" if any(a <= t0 < b for a, b in huge) else "kc"
         html.append(f'<div class="kw"><div id="kc{i}" class="{cls}">{spans}</div></div>')
@@ -210,6 +211,19 @@ def overlays(E):
 
 # ------------------------------------------------------------------ motion graphics (edit.FX)
 FX_LAYERS = ("behind", "cam", "top", "over")
+# element ids the reel page itself uses: an effect with one of these ids would pick up the page's own CSS and JS
+FX_RESERVED = {"root", "main", "cam", "behind", "caps", "end", "foot", "hook", "hook-tag", "fan", "fanclip", "fanrect",
+               "kc", "mix", "nb", "s", "v"}
+
+
+def fx_reserved():
+    import re
+    ids = set(FX_RESERVED)
+    for css in ("reel.css", "reel-lofi.css"):
+        path = os.path.join(KIT, "kit", css)
+        if os.path.exists(path):
+            ids |= set(re.findall(r"#([a-z][a-z0-9_-]*)", open(path).read()))
+    return ids
 
 
 def fx(E):
@@ -224,6 +238,11 @@ def fx(E):
     {{T0}}..{{T9}} become unique data-track-index values for <video> elements."""
     out, js = {k: [] for k in FX_LAYERS}, []
     only = [x for x in os.environ.get("FX_ONLY", "").split(",") if x]       # fxsandbox.py: build just these
+    taken = fx_reserved()
+    for F in getattr(E, "FX", []):
+        if F["id"] in taken:
+            raise SystemExit(f"FX {F['id']}: that id is the reel page's own ({F['id']!r} has CSS and JS of its own). "
+                             f"Rename the entry and its fx/ folder, for example {F['id'] + '-fx'!r}")
     for k, F in enumerate(getattr(E, "FX", [])):
         fid, layer = F["id"], F.get("layer", "top")
         if only and fid not in only:
@@ -263,7 +282,7 @@ def fx_times(markup, A, B):
 
 
 def sync_fx(E, project, pub):
-    """fx assets (everything in fx/<id>/ but fx.html / fx.js / notes) -> public/fx/<id>/"""
+    """fx assets (everything in fx/<id>/ but fx.html / fx.js / notes / the library preview) -> public/fx/<id>/"""
     import shutil
     for F in getattr(E, "FX", []):
         src = os.path.join(project, "fx", F["id"])
@@ -273,7 +292,7 @@ def sync_fx(E, project, pub):
         os.makedirs(dst, exist_ok=True)
         for f in os.listdir(src):
             a = os.path.join(src, f)
-            if os.path.isfile(a) and f not in ("fx.html", "fx.js", "preview.jpg") and not f.endswith((".md", ".py")):
+            if os.path.isfile(a) and f not in ("fx.html", "fx.js", "preview.jpg", "preview.mp4") and not f.endswith((".md", ".py")):
                 if not os.path.exists(os.path.join(dst, f)) or os.path.getmtime(a) > os.path.getmtime(os.path.join(dst, f)):
                     shutil.copy(a, os.path.join(dst, f))
 

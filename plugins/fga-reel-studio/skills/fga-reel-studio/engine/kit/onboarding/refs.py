@@ -32,6 +32,10 @@ import tempfile
 import time
 import warnings
 
+_BIN = os.path.join(os.path.expanduser(os.environ.get("REEL_KIT_HOME", "~/reel-kit")), "tools", "bin")
+if os.path.isdir(_BIN):                                   # ffmpeg and ffprobe that setup fetched, when it had to
+    os.environ["PATH"] = _BIN + os.pathsep + os.environ.get("PATH", "")
+
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from scipy.cluster.vq import kmeans2

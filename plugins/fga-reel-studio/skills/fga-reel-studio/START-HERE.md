@@ -1,6 +1,6 @@
 # FGA Reel Studio for Claude Code
 
-Version 0.3.3. The ZIP includes the skill, editing scripts and effects library. This guide is for local sessions on a Mac.
+Version 0.4.0. The ZIP includes the skill, editing scripts and effects library. This guide is for local sessions on a Mac.
 
 ## Install with a message
 

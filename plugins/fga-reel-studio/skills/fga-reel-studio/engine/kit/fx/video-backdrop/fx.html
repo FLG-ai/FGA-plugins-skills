@@ -1,0 +1,65 @@
+<!-- video-backdrop (behind the head): "I recorded a walkthrough". The walkthrough replaces the room behind the speaker,
+     full bleed, darkened a touch so they read. Every chapter PUSHES in from the right on its word, the old one sliding
+     a third of the way left and darkening (parallax); at the end of the line the last chapter pushes out left and the
+     real room comes back. The numbered chapter label lives in video-backdrop-label (top layer), on the same words.
+     PLACEHOLDERS: each chapter below is a token-built stand-in screen that scrolls (so it moves like a recording).
+     mkclips.py cuts moving 9:16 columns of your screen recording and prints one <video> tag per chapter: paste each
+     over its chapter's placeholder block (between the two comments), keep the dim div, set PLACEHOLDER = '' in fx.js.
+     Four chapters are here; fx.js CUES decides how many play (the rest stay hidden). Words and times: fx.js. -->
+<div id="{{ID}}-stage" data-layout-allow-overflow>
+  <div class="{{ID}}-ch" id="{{ID}}-c1">
+    <!-- chapter 1: PLACEHOLDER screen (replace this block with the <video> tag mkclips.py prints) -->
+    <div class="{{ID}}-m {{ID}}-ph {{ID}}-lt {{ID}}-list"><span class="{{ID}}-n"></span><div class="{{ID}}-win"><div class="{{ID}}-bar"><i></i><i></i><i></i></div><div class="{{ID}}-side"></div><div class="{{ID}}-pane"><div class="{{ID}}-scroll"><i class="{{ID}}-r" style="width:72%;"></i><i class="{{ID}}-r" style="width:58%;"></i><i class="{{ID}}-r" style="width:80%;"></i><i class="{{ID}}-r" style="width:46%;"></i><i class="{{ID}}-r" style="width:66%;"></i><i class="{{ID}}-r {{ID}}-hl" style="width:74%;"></i><i class="{{ID}}-r" style="width:52%;"></i><i class="{{ID}}-r" style="width:84%;"></i><i class="{{ID}}-r" style="width:60%;"></i><i class="{{ID}}-r" style="width:70%;"></i><i class="{{ID}}-r" style="width:48%;"></i><i class="{{ID}}-r" style="width:76%;"></i><i class="{{ID}}-r" style="width:62%;"></i><i class="{{ID}}-r" style="width:56%;"></i><i class="{{ID}}-r" style="width:80%;"></i><i class="{{ID}}-r" style="width:50%;"></i><i class="{{ID}}-r" style="width:68%;"></i><i class="{{ID}}-r" style="width:74%;"></i></div></div><i class="{{ID}}-cur"></i></div></div>
+    <!-- end of chapter 1 placeholder -->
+    <div class="{{ID}}-dim"></div>
+  </div>
+  <div class="{{ID}}-ch" id="{{ID}}-c2">
+    <!-- chapter 2: PLACEHOLDER screen (replace this block with the <video> tag mkclips.py prints) -->
+    <div class="{{ID}}-m {{ID}}-ph {{ID}}-dk {{ID}}-grid"><span class="{{ID}}-n"></span><div class="{{ID}}-win"><div class="{{ID}}-bar"><i></i><i></i><i></i></div><div class="{{ID}}-side"></div><div class="{{ID}}-pane"><div class="{{ID}}-scroll"><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile {{ID}}-hl"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i><i class="{{ID}}-tile"></i></div></div><i class="{{ID}}-cur"></i></div></div>
+    <!-- end of chapter 2 placeholder -->
+    <div class="{{ID}}-dim"></div>
+  </div>
+  <div class="{{ID}}-ch" id="{{ID}}-c3">
+    <!-- chapter 3: PLACEHOLDER screen (replace this block with the <video> tag mkclips.py prints) -->
+    <div class="{{ID}}-m {{ID}}-ph {{ID}}-lt {{ID}}-doc"><span class="{{ID}}-n"></span><div class="{{ID}}-win"><div class="{{ID}}-bar"><i></i><i></i><i></i></div><div class="{{ID}}-side"></div><div class="{{ID}}-pane"><div class="{{ID}}-scroll"><i class="{{ID}}-ln" style="width:92%;"></i><i class="{{ID}}-ln" style="width:86%;"></i><i class="{{ID}}-ln" style="width:95%;"></i><i class="{{ID}}-ln" style="width:40%;"></i><i class="{{ID}}-gap"></i><i class="{{ID}}-ln" style="width:88%;"></i><i class="{{ID}}-ln" style="width:94%;"></i><i class="{{ID}}-ln {{ID}}-hl" style="width:82%;"></i><i class="{{ID}}-ln" style="width:90%;"></i><i class="{{ID}}-ln" style="width:60%;"></i><i class="{{ID}}-gap"></i><i class="{{ID}}-ln" style="width:94%;"></i><i class="{{ID}}-ln" style="width:85%;"></i><i class="{{ID}}-ln" style="width:91%;"></i><i class="{{ID}}-ln" style="width:70%;"></i><i class="{{ID}}-gap"></i><i class="{{ID}}-ln" style="width:89%;"></i><i class="{{ID}}-ln" style="width:93%;"></i><i class="{{ID}}-ln" style="width:52%;"></i><i class="{{ID}}-gap"></i><i class="{{ID}}-ln" style="width:90%;"></i><i class="{{ID}}-ln" style="width:84%;"></i><i class="{{ID}}-ln" style="width:96%;"></i><i class="{{ID}}-ln" style="width:66%;"></i></div></div><i class="{{ID}}-cur"></i></div></div>
+    <!-- end of chapter 3 placeholder -->
+    <div class="{{ID}}-dim"></div>
+  </div>
+  <div class="{{ID}}-ch" id="{{ID}}-c4">
+    <!-- chapter 4: PLACEHOLDER screen (replace this block with the <video> tag mkclips.py prints) -->
+    <div class="{{ID}}-m {{ID}}-ph {{ID}}-dk {{ID}}-list"><span class="{{ID}}-n"></span><div class="{{ID}}-win"><div class="{{ID}}-bar"><i></i><i></i><i></i></div><div class="{{ID}}-side"></div><div class="{{ID}}-pane"><div class="{{ID}}-scroll"><i class="{{ID}}-r" style="width:72%;"></i><i class="{{ID}}-r" style="width:58%;"></i><i class="{{ID}}-r" style="width:80%;"></i><i class="{{ID}}-r" style="width:46%;"></i><i class="{{ID}}-r" style="width:66%;"></i><i class="{{ID}}-r {{ID}}-hl" style="width:74%;"></i><i class="{{ID}}-r" style="width:52%;"></i><i class="{{ID}}-r" style="width:84%;"></i><i class="{{ID}}-r" style="width:60%;"></i><i class="{{ID}}-r" style="width:70%;"></i><i class="{{ID}}-r" style="width:48%;"></i><i class="{{ID}}-r" style="width:76%;"></i><i class="{{ID}}-r" style="width:62%;"></i><i class="{{ID}}-r" style="width:56%;"></i><i class="{{ID}}-r" style="width:80%;"></i><i class="{{ID}}-r" style="width:50%;"></i><i class="{{ID}}-r" style="width:68%;"></i><i class="{{ID}}-r" style="width:74%;"></i></div></div><i class="{{ID}}-cur"></i></div></div>
+    <!-- end of chapter 4 placeholder -->
+    <div class="{{ID}}-dim"></div>
+  </div>
+</div>
+<style>
+#{{ID}}-stage { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; }
+#{{ID}} .{{ID}}-ch { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; background:var(--c-dark);
+  box-shadow:-18px 0 40px color-mix(in srgb, var(--c-dark) 40%, transparent); }
+#{{ID}} .{{ID}}-v, #{{ID}} .{{ID}}-ph { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; display:block; }
+#{{ID}} .{{ID}}-dim { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); opacity:.34; }
+
+/* placeholder screens: a ground, a window with a sidebar and a pane that scrolls, a highlighted row, a cursor.
+   Two grounds (lt, dk) and three panes (list, grid, doc). Replaced by your recording. */
+#{{ID}} .{{ID}}-ph { --g:color-mix(in srgb, var(--c-light) 70%, var(--c-dark)); --w:var(--c-light); --b:color-mix(in srgb, var(--c-dark) 22%, var(--c-light));
+  --s:color-mix(in srgb, var(--c-dark) 8%, var(--c-light)); --fg:var(--c-ink); background:var(--g); }
+#{{ID}} .{{ID}}-dk { --g:color-mix(in srgb, var(--c-dark) 66%, var(--c-light)); --w:color-mix(in srgb, var(--c-dark) 76%, var(--c-light));
+  --b:color-mix(in srgb, var(--c-light) 40%, var(--c-dark)); --s:color-mix(in srgb, var(--c-dark) 64%, var(--c-light)); --fg:var(--c-light); }
+#{{ID}} .{{ID}}-n { position:absolute; left:0; top:236px; width:1080px; text-align:center; font:500 30px/1 var(--font-mono);
+  letter-spacing:.16em; text-transform:uppercase; white-space:nowrap; color:var(--fg); opacity:.66; }
+#{{ID}} .{{ID}}-win { position:absolute; left:48px; top:300px; width:984px; height:1560px; border-radius:var(--radius); overflow:hidden; background:var(--w); }
+#{{ID}} .{{ID}}-bar { position:absolute; left:0; top:0; width:984px; height:60px; background:var(--s); }
+#{{ID}} .{{ID}}-bar i { position:absolute; top:22px; width:16px; height:16px; border-radius:8px; background:var(--b); }
+#{{ID}} .{{ID}}-bar i:nth-child(1) { left:24px; } #{{ID}} .{{ID}}-bar i:nth-child(2) { left:52px; } #{{ID}} .{{ID}}-bar i:nth-child(3) { left:80px; }
+#{{ID}} .{{ID}}-side { position:absolute; left:0; top:60px; width:200px; height:1500px; background:var(--s); }
+#{{ID}} .{{ID}}-pane { position:absolute; left:236px; top:96px; width:712px; height:1440px; overflow:hidden; }
+#{{ID}} .{{ID}}-scroll { position:absolute; left:0; top:0; width:712px; }
+#{{ID}} .{{ID}}-r { display:block; height:64px; margin-bottom:30px; border-radius:var(--radius); background:var(--b); }
+#{{ID}} .{{ID}}-tile { display:inline-block; width:340px; height:250px; margin:0 32px 32px 0; border-radius:var(--radius); background:var(--b); vertical-align:top; }
+#{{ID}} .{{ID}}-tile:nth-child(2n) { margin-right:0; }
+#{{ID}} .{{ID}}-ln { display:block; height:30px; margin-bottom:22px; border-radius:var(--radius); background:var(--b); }
+#{{ID}} .{{ID}}-gap { display:block; height:40px; }
+#{{ID}} .{{ID}}-hl { background:var(--c-accent); }
+#{{ID}} .{{ID}}-cur { position:absolute; left:0; top:0; width:30px; height:30px; border-radius:15px; background:var(--fg);
+  border:5px solid var(--w); box-sizing:border-box; }
+</style>

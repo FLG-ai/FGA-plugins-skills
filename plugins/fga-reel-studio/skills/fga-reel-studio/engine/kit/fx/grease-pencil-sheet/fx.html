@@ -1,0 +1,35 @@
+<!-- grease-pencil-sheet (top): a flat contact sheet of the REAL raw take drops in from above and lands with a small
+     bounce: two film strips of six frames on a light sheet, a timecode under each frame, the raw file's name, length
+     and size in the footer. Its frames develop (paper-bright to the picture) in reading order, then a grease pencil
+     in the negative colour circles and X's the frames the edit really cut, one per word, the struck frames dimming,
+     with short handwritten labels over the first two. It lifts off the top on the way out. The frames
+     (frames.jpg) and which ones were cut come from gen.py; fx.js builds the sheet from them. -->
+<div id="{{ID}}-sheet" data-layout-allow-overlap>
+  <svg id="{{ID}}-pen" width="940" height="756" viewBox="0 0 940 756">
+    <defs><filter id="{{ID}}-wax" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise"
+      baseFrequency="0.9" numOctaves="1" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5"/></filter></defs>
+    <g id="{{ID}}-ink" filter="url(#{{ID}}-wax)"></g>
+  </svg>
+</div>
+<style>
+#{{ID}}-sheet { position:absolute; left:70px; top:236px; width:940px; height:756px; background:var(--c-light);
+  border-radius:var(--radius); transform-origin:470px 0px;
+  box-shadow:0 22px 50px color-mix(in srgb, var(--c-dark) 34%, transparent), 0 2px 6px color-mix(in srgb, var(--c-dark) 16%, transparent); }
+#{{ID}} .{{ID}}-strip { position:absolute; left:20px; width:900px; height:260px; background:var(--c-dark); border-radius:3px; }
+#{{ID}} .{{ID}}-holes { position:absolute; left:0; width:900px; height:9px; }
+#{{ID}} .{{ID}}-ht { top:4px; }
+#{{ID}} .{{ID}}-hb { bottom:4px; }
+#{{ID}} .{{ID}}-holes i { position:absolute; top:0; width:11px; height:8px; border-radius:2px; background:var(--c-light); opacity:.82; }
+#{{ID}} .{{ID}}-fr { position:absolute; width:128px; height:228px; border-radius:2px; background-image:url(fx/{{ID}}/frames.jpg);
+  background-repeat:no-repeat; }
+#{{ID}} .{{ID}}-tc { position:absolute; width:144px; text-align:center; font-family:var(--font-mono); font-weight:500;
+  font-size:18px; line-height:1; letter-spacing:.02em; color:var(--c-muted-light); font-variant-numeric:tabular-nums; }
+#{{ID}}-foot { position:absolute; left:22px; right:22px; top:704px; display:flex; justify-content:space-between;
+  font-family:var(--font-mono); font-weight:600; font-size:16px; line-height:1; letter-spacing:.06em; color:var(--c-muted-light);
+  white-space:nowrap; }
+#{{ID}}-pen { position:absolute; left:0; top:0; overflow:visible; z-index:2; }
+#{{ID}} .{{ID}}-mk { fill:none; stroke:var(--c-neg); stroke-width:9; stroke-linecap:round; stroke-linejoin:round; }
+#{{ID}} .{{ID}}-lb { position:absolute; height:84px; text-align:center; white-space:nowrap; z-index:3; }
+#{{ID}} .{{ID}}-lb span { display:inline-block; font-family:var(--font-display); font-style:var(--display-style);
+  font-weight:var(--display-weight); font-size:64px; line-height:84px; color:var(--c-neg); }
+</style>

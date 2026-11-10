@@ -1,0 +1,65 @@
+<!-- reel-feed (cam): "lots of people are doing this". A vertical feed of eight screenshots of other creators doing it
+     snaps past full frame like a fast flick-scroll: every move one or two frames under a vertical motion blur, each
+     card held a few frames, accelerating, and the feed brakes onto the speaker (a synced copy of the live shot, class
+     g, the ninth card) on the cue word. A thin scroll thumb on the right edge tracks the scroll.
+     PLACEHOLDERS: the eight cards below are token-built stand-ins, not real screenshots. List your eight screenshots
+     (9:16, full frame, headline readable, files in this folder) in SHOTS in fx.js and each replaces its card.
+     Words and times: fx.js. The ninth card is timed by the build from the effect's window ({{START}}, {{SYNC}}, {{DUR}}). -->
+<svg id="{{ID}}-defs" width="0" height="0" style="position:absolute;">
+  <filter id="{{ID}}-mb" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+    <feGaussianBlur id="{{ID}}-mb-g" in="SourceGraphic" stdDeviation="0 0" result="b"/>
+    <feComponentTransfer in="b"><feFuncA type="table" tableValues="1 1"/></feComponentTransfer>
+  </filter>
+</svg>
+<div id="{{ID}}-view" data-layout-allow-overflow>
+  <div id="{{ID}}-strip" data-layout-allow-overflow>
+    <div class="{{ID}}-c" id="{{ID}}-c1" style="top:0px;"><div class="{{ID}}-ph {{ID}}-gl {{ID}}-la"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c2" style="top:1920px;"><div class="{{ID}}-ph {{ID}}-gd {{ID}}-lb"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c3" style="top:3840px;"><div class="{{ID}}-ph {{ID}}-gm {{ID}}-lc"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c4" style="top:5760px;"><div class="{{ID}}-ph {{ID}}-gt {{ID}}-ld"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c5" style="top:7680px;"><div class="{{ID}}-ph {{ID}}-gl {{ID}}-lb"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c6" style="top:9600px;"><div class="{{ID}}-ph {{ID}}-gm {{ID}}-la"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c7" style="top:11520px;"><div class="{{ID}}-ph {{ID}}-gt {{ID}}-lc"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c8" style="top:13440px;"><div class="{{ID}}-ph {{ID}}-gd {{ID}}-ld"><span class="{{ID}}-n"></span><i class="{{ID}}-b"></i><i class="{{ID}}-b {{ID}}-x"></i><i class="{{ID}}-hd"></i><i class="{{ID}}-sh"></i></div></div>
+    <div class="{{ID}}-c" id="{{ID}}-c9" style="top:15360px;"><video id="{{ID}}-v" class="{{ID}}-i g" src="clean.mp4" muted playsinline data-start="{{START}}" data-media-start="{{SYNC}}" data-duration="{{DUR}}" data-track-index="{{T0}}"></video></div>
+  </div>
+</div>
+<div id="{{ID}}-thumb"></div>
+<style>
+#{{ID}}-view { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; background:var(--c-dark); }
+#{{ID}}-strip { position:absolute; left:0; top:0; width:1080px; height:17280px; }
+#{{ID}} .{{ID}}-c { position:absolute; left:0; width:1080px; height:1920px; overflow:hidden; background:var(--c-dark); }
+#{{ID}} .{{ID}}-i { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; display:block; }
+#{{ID}}-thumb { position:absolute; left:1030px; top:0; width:8px; height:150px; border-radius:4px; background:var(--c-light); }
+
+/* placeholder "screenshot" cards (grid-collapse's, full frame): a ground, a figure, a headline as bars, a label.
+   SHOTS in fx.js replaces them with real ones. */
+#{{ID}} .{{ID}}-ph { position:absolute; inset:0; --fg:var(--c-light); --fig:color-mix(in srgb, var(--c-light) 20%, var(--c-dark)); --hl:var(--c-accent); }
+#{{ID}} .{{ID}}-gl { background:var(--c-light); --fg:var(--c-ink); --fig:color-mix(in srgb, var(--c-dark) 80%, var(--c-light)); --hl:var(--c-accent-light); }
+#{{ID}} .{{ID}}-gd { background:color-mix(in srgb, var(--c-dark) 90%, var(--c-light)); }
+#{{ID}} .{{ID}}-gm { background:color-mix(in srgb, var(--c-light) 62%, var(--c-dark)); --fg:var(--c-ink); --fig:color-mix(in srgb, var(--c-dark) 85%, var(--c-light)); --hl:var(--c-light); }
+#{{ID}} .{{ID}}-gt { --tint:color-mix(in srgb, var(--c-accent) 24%, var(--c-dark)); background:var(--tint);
+  --fig:color-mix(in srgb, var(--c-light) 20%, var(--tint)); --hl:var(--c-light); }
+#{{ID}} .{{ID}}-n { position:absolute; left:64px; top:244px; font:500 30px/1 var(--font-mono); letter-spacing:.16em; text-transform:uppercase;
+  white-space:nowrap; color:var(--fg); opacity:.62; z-index:2; }
+#{{ID}} .{{ID}}-b { position:absolute; left:64px; height:92px; border-radius:var(--radius); background:var(--fg); z-index:2; }
+#{{ID}} .{{ID}}-b.{{ID}}-x { background:var(--hl); }
+#{{ID}} .{{ID}}-hd, #{{ID}} .{{ID}}-sh { position:absolute; left:50%; background:var(--fig); }
+#{{ID}} .{{ID}}-hd { border-radius:50%; }
+#{{ID}} .{{ID}}-sh { border-radius:999px 999px 0 0; }
+/* four layouts: headline at the top over a medium figure (a), on the chest of a close-up (b), small over a wide
+   shot (c), low over a medium figure (d); nothing in the caption band (y 1300-1470) */
+#{{ID}} .{{ID}}-la .{{ID}}-b:nth-of-type(1) { top:330px; width:78%; } #{{ID}} .{{ID}}-la .{{ID}}-b:nth-of-type(2) { top:450px; width:62%; }
+#{{ID}} .{{ID}}-la .{{ID}}-b:nth-of-type(3) { top:570px; width:44%; }
+#{{ID}} .{{ID}}-la .{{ID}}-hd { top:850px; width:348px; height:443px; margin-left:-174px; }
+#{{ID}} .{{ID}}-la .{{ID}}-sh { top:1247px; width:886px; height:822px; margin-left:-443px; }
+#{{ID}} .{{ID}}-lb .{{ID}}-hd { top:474px; width:538px; height:683px; margin-left:-269px; }
+#{{ID}} .{{ID}}-lb .{{ID}}-sh { top:1107px; width:1265px; height:949px; margin-left:-632px; }
+#{{ID}} .{{ID}}-lb .{{ID}}-b:nth-of-type(1) { top:1060px; width:70%; left:15%; } #{{ID}} .{{ID}}-lb .{{ID}}-b:nth-of-type(2) { top:1180px; width:52%; left:24%; }
+#{{ID}} .{{ID}}-lc .{{ID}}-b:nth-of-type(1) { top:320px; width:58%; height:76px; } #{{ID}} .{{ID}}-lc .{{ID}}-b:nth-of-type(2) { top:420px; width:40%; height:76px; }
+#{{ID}} .{{ID}}-lc .{{ID}}-hd { top:1158px; width:228px; height:291px; margin-left:-114px; }
+#{{ID}} .{{ID}}-lc .{{ID}}-sh { top:1424px; width:601px; height:633px; margin-left:-300px; }
+#{{ID}} .{{ID}}-ld .{{ID}}-hd { top:600px; width:392px; height:500px; margin-left:-196px; }
+#{{ID}} .{{ID}}-ld .{{ID}}-sh { top:1044px; width:949px; height:1012px; margin-left:-474px; }
+#{{ID}} .{{ID}}-ld .{{ID}}-b:nth-of-type(1) { top:1100px; width:74%; left:13%; } #{{ID}} .{{ID}}-ld .{{ID}}-b:nth-of-type(2) { top:1220px; width:56%; left:22%; }
+</style>

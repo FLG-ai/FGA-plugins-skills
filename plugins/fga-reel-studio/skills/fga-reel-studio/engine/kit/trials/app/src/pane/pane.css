@@ -1,0 +1,219 @@
+/* Trials, pane look. Tokens, panes and motion follow Brainfile (brainfile/app/globals.css). */
+@import "tailwindcss" source(none);
+@source "./";
+
+:root {
+  --canvas: oklch(97.4% 0 0);
+  --bg: oklch(100% 0 0);
+  --ink: oklch(15% 0 0);
+  --ink-2: oklch(46% 0 0);
+  --ink-3: oklch(59% 0 0);
+  --line: oklch(93% 0 0);
+  --line-strong: oklch(84% 0 0);
+  --hover: oklch(96.2% 0 0);
+  --hover-2: oklch(93.8% 0 0);
+  --accent: oklch(23% 0 0);
+  --accent-ink: oklch(100% 0 0);
+  --focus: oklch(55% 0.15 265);
+  --danger: oklch(54% 0.21 25);
+  --danger-ink: oklch(100% 0 0);
+  --success: oklch(55% 0.15 155);
+  --selection: oklch(90% 0.04 265);
+  --sh-resting: 0 1px 2px oklch(0% 0 0 / 0.04), 0 0 0 1px oklch(0% 0 0 / 0.035);
+  --sh-raised: 0 6px 18px oklch(0% 0 0 / 0.065), 0 1px 3px oklch(0% 0 0 / 0.035);
+  --sh-floating: 0 20px 48px oklch(0% 0 0 / 0.105), 0 3px 10px oklch(0% 0 0 / 0.045);
+  --ig: #c05a36;
+  --gold: oklch(88% 0.12 88);
+  --lead: oklch(64% 0.17 148);
+  --gold-ink: oklch(36% 0.08 70);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --canvas: oklch(17% 0 0);
+  --bg: oklch(21% 0 0);
+  --ink: oklch(95% 0 0);
+  --ink-2: oklch(76% 0 0);
+  --ink-3: oklch(62% 0 0);
+  --line: oklch(27.5% 0 0);
+  --line-strong: oklch(38% 0 0);
+  --hover: oklch(25% 0 0);
+  --hover-2: oklch(28.5% 0 0);
+  --accent: oklch(93% 0 0);
+  --accent-ink: oklch(19% 0 0);
+  --focus: oklch(72% 0.13 265);
+  --danger: oklch(76% 0.2 25);
+  --danger-ink: oklch(19% 0 0);
+  --success: oklch(75% 0.15 155);
+  --selection: oklch(35% 0.06 265);
+  --sh-resting: 0 1px 2px oklch(0% 0 0 / 0.25), 0 0 0 1px oklch(100% 0 0 / 0.045);
+  --sh-raised: 0 8px 22px oklch(0% 0 0 / 0.3), 0 0 0 1px oklch(100% 0 0 / 0.05);
+  --sh-floating: 0 22px 55px oklch(0% 0 0 / 0.45), 0 0 0 1px oklch(100% 0 0 / 0.06);
+  --ig: #e38663;
+  --gold: oklch(80% 0.13 85);
+  --lead: oklch(72% 0.17 148);
+  --gold-ink: oklch(25% 0.06 70);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-hover: var(--hover);
+  --color-hover-2: var(--hover-2);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-focus: var(--focus);
+  --color-danger: var(--danger);
+  --color-danger-ink: var(--danger-ink);
+  --color-success: var(--success);
+  --color-gold: var(--gold);
+  --color-lead: var(--lead);
+  --color-gold-ink: var(--gold-ink);
+  --shadow-resting: var(--sh-resting);
+  --shadow-raised: var(--sh-raised);
+  --shadow-floating: var(--sh-floating);
+  --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@theme static {
+  --radius-control: 9px;
+  --radius-card: 11px;
+  --radius-panel: 14px;
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-std: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: linear(0, 0.0258, 0.09, 0.1763, 0.2732, 0.3724, 0.4683, 0.5573, 0.6376, 0.7082, 0.7689, 0.8202, 0.8628, 0.8976, 0.9256, 0.9476, 0.9648, 0.9778, 0.9875, 0.9945, 0.9994, 1.0026, 1.0047, 1.0058, 1.0062, 1.0062, 1.0059, 1.0055, 1.0049, 1.0043, 1.0036, 1.0031, 1.0025, 1.002, 1.0016, 1.0013, 1);
+}
+
+html,
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+/* Anything clickable gets the hand. Tailwind's reset leaves buttons on the arrow. */
+@layer base {
+  a[href],
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  select:not(:disabled),
+  summary,
+  label[for],
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="file"]:not(:disabled) {
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Panes: a list column and a detail column, each scrolling on its own. At lg they float as panels. */
+.pane-list {
+  width: 100%;
+  flex-shrink: 0;
+  height: 100dvh;
+  overflow-y: auto;
+  background: var(--bg);
+}
+.pane-detail {
+  flex: 1;
+  min-width: 0;
+  height: 100dvh;
+  overflow-y: auto;
+  background: var(--bg);
+}
+@media (max-width: 1023px) {
+  .pane-list.has-detail {
+    display: none;
+  }
+  .pane-detail.pane-empty {
+    display: none;
+  }
+}
+@media (min-width: 1024px) {
+  .pane-list,
+  .pane-detail {
+    height: calc(100dvh - 16px);
+    margin-block: 8px;
+    border-radius: var(--radius-panel);
+    box-shadow: var(--sh-resting);
+  }
+  .pane-list {
+    width: var(--list-w, 372px);
+  }
+  .pane-detail {
+    margin-right: 8px;
+  }
+}
+
+/* Tables run wider than the text column: into the gutter, plus any spare pane width, up to 120px a side. */
+.pane-detail,
+.bleed-host {
+  container-type: inline-size;
+}
+.wide-table {
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .wide-table {
+    --bleed: min(120px, max(0px, (100cqi - 720px) / 2) + 24px);
+    width: calc(100% + 2 * var(--bleed));
+    margin-inline: calc(-1 * var(--bleed));
+  }
+}
+
+/* The caption reads like a document: Brainfile's editor type. */
+.caption-field {
+  font-family: var(--font-serif);
+  font-size: 16.5px;
+  line-height: 1.68;
+}
+
+/* Motion. Base states are the resting state, so with animations off everything is simply there. */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
+.card-in { animation: card-in 480ms var(--ease-enter) backwards; }
+
+@keyframes detail-in {
+  from { opacity: 0; filter: blur(4px); transform: translateY(4px); }
+}
+.detail-in { animation: detail-in 240ms var(--ease-std) backwards; }
+
+@keyframes pulse-dot {
+  50% { opacity: 0.3; }
+}
+.pulse-dot { animation: pulse-dot 1s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

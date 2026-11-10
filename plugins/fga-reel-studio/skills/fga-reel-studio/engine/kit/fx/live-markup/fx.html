@@ -1,0 +1,38 @@
+<!-- live-markup (cam): the live shot goes black and white on the turn (edit.BW from the cue word) and keeps playing,
+     never a freeze; a synced copy of the footage (class g, so it carries the grade) gives it a short camera punch on
+     the word. A grease pencil in the negative colour marks the speaker up the way an editor marks a frame: a rough
+     double loop round the head, a handwritten word ("me") and an arrow into the loop. The marks ride a head track
+     (track.py writes HEAD and TRACK into fx.js), so the speaker stays inside the loop as they move. The pencil
+     texture is a fixed (seeded) turbulence displacement, so every frame renders the same. Layout lives in fx.js. -->
+<video id="{{ID}}-punch" class="g" src="clean.mp4" muted playsinline data-start="{{START}}" data-media-start="{{SYNC}}" data-duration="{{DUR}}" data-track-index="{{T0}}"></video>
+<div id="{{ID}}-trk">
+<svg id="{{ID}}-ink" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <filter id="{{ID}}-wax" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <g filter="url(#{{ID}}-wax)" class="{{ID}}-pen">
+    <path id="{{ID}}-loop" pathLength="1" stroke-width="11" d="M 0 0"/>
+    <path id="{{ID}}-loop2" pathLength="1" stroke-width="5" d="M 0 0"/>
+    <g id="{{ID}}-mark">
+      <g id="{{ID}}-arw">
+        <path id="{{ID}}-arrow" pathLength="1" stroke-width="10" d="M -198 -125 C -108 -140, -38 -100, 0 0"/>
+        <path id="{{ID}}-head" pathLength="1" stroke-width="10" d="M -40 -30 L 3 10 L 28 -46"/>
+      </g>
+      <path id="{{ID}}-me" pathLength="1" stroke-width="8"
+        d="M 0 96 C 6 70, 8 40, 18 38 C 30 36, 34 62, 36 96 C 40 64, 46 38, 58 38 C 70 38, 74 62, 76 96 C 80 64, 86 38, 98 38 C 110 38, 114 64, 118 92 C 122 100, 132 98, 140 86 C 156 80, 176 70, 176 54 C 176 38, 152 36, 146 56 C 140 76, 150 98, 170 98 C 182 98, 192 92, 198 84"/>
+      <text id="{{ID}}-word" x="0" y="0"></text>
+    </g>
+  </g>
+</svg>
+</div>
+<style>
+#{{ID}}-punch { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; display:block; }
+#{{ID}}-trk { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}}-ink { position:absolute; left:0; top:0; overflow:visible; }
+#{{ID}} .{{ID}}-pen path { fill:none; stroke:var(--c-neg); stroke-linecap:round; stroke-linejoin:round; }
+#{{ID}}-word { fill:var(--c-neg); font-family:var(--font-display); font-style:var(--display-style);
+  font-weight:var(--display-weight); font-size:120px; }
+</style>

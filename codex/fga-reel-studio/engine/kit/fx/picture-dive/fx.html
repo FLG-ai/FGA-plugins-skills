@@ -1,0 +1,36 @@
+<!-- picture-dive (cam). The frame shrinks into a framed picture of itself on the wall behind the speaker, four levels
+     deep, then the camera dives past the speaker into it. Self-contained: a plate (v0, a synced copy of clean.mp4),
+     the picture (n1, which nests n2..n4) and the speaker on top (c0, a synced copy of subject.webm), so it needs no
+     CUT_WINDOWS entry. Every level is the full composite: its footage, the next level, then its own cutout over it, so
+     each inner speaker stands in front of their own picture too. All footage is the video's own, in sync, in the live
+     grade (class g), each level a frame apart so no two copies share a start. Positions, words and times: fx.js. -->
+<div id="{{ID}}-stack" data-layout-allow-overflow>
+  <video id="{{ID}}-v0" class="{{ID}}-vid g" src="clean.mp4" muted playsinline data-start="{{START}}" data-media-start="{{SYNC}}" data-duration="{{DUR}}" data-track-index="{{T0}}"></video>
+  <div id="{{ID}}-n1" class="{{ID}}-lv">
+    <video id="{{ID}}-v1" class="{{ID}}-vid g" src="clean.mp4" muted playsinline data-start="{{START+0.033}}" data-media-start="{{SYNC+0.033}}" data-duration="{{DUR-0.033}}" data-track-index="{{T1}}"></video>
+    <div id="{{ID}}-n2" class="{{ID}}-lv">
+      <video id="{{ID}}-v2" class="{{ID}}-vid g" src="clean.mp4" muted playsinline data-start="{{START+0.067}}" data-media-start="{{SYNC+0.067}}" data-duration="{{DUR-0.067}}" data-track-index="{{T2}}"></video>
+      <div id="{{ID}}-n3" class="{{ID}}-lv">
+        <video id="{{ID}}-v3" class="{{ID}}-vid g" src="clean.mp4" muted playsinline data-start="{{START+0.1}}" data-media-start="{{SYNC+0.1}}" data-duration="{{DUR-0.1}}" data-track-index="{{T3}}"></video>
+        <div id="{{ID}}-n4" class="{{ID}}-lv">
+          <video id="{{ID}}-v4" class="{{ID}}-vid g" src="clean.mp4" muted playsinline data-start="{{START+0.133}}" data-media-start="{{SYNC+0.133}}" data-duration="{{DUR-0.133}}" data-track-index="{{T4}}"></video>
+          <div id="{{ID}}-f4" class="{{ID}}-fr"></div>
+        </div>
+        <video id="{{ID}}-c3" class="{{ID}}-vid g" src="subject.webm" muted playsinline data-start="{{START+0.1}}" data-media-start="{{SYNC+0.1}}" data-duration="{{DUR-0.1}}" data-track-index="{{T5}}"></video>
+        <div id="{{ID}}-f3" class="{{ID}}-fr"></div>
+      </div>
+      <video id="{{ID}}-c2" class="{{ID}}-vid g" src="subject.webm" muted playsinline data-start="{{START+0.067}}" data-media-start="{{SYNC+0.067}}" data-duration="{{DUR-0.067}}" data-track-index="{{T6}}"></video>
+      <div id="{{ID}}-f2" class="{{ID}}-fr"></div>
+    </div>
+    <video id="{{ID}}-c1" class="{{ID}}-vid g" src="subject.webm" muted playsinline data-start="{{START+0.033}}" data-media-start="{{SYNC+0.033}}" data-duration="{{DUR-0.033}}" data-track-index="{{T7}}"></video>
+    <div id="{{ID}}-f1" class="{{ID}}-fr"></div>
+  </div>
+  <video id="{{ID}}-c0" class="{{ID}}-vid g" src="subject.webm" muted playsinline data-start="{{START}}" data-media-start="{{SYNC}}" data-duration="{{DUR}}" data-track-index="{{T8}}"></video>
+</div>
+<style>
+#{{ID}}-stack { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; }
+#{{ID}} .{{ID}}-lv { position:absolute; left:0; top:0; width:1080px; height:1920px;
+  box-shadow:0 24px 60px color-mix(in srgb, var(--c-ink) 30%, transparent); }
+#{{ID}} .{{ID}}-vid { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
+#{{ID}} .{{ID}}-fr { position:absolute; left:0; top:0; width:1080px; height:1920px; box-sizing:border-box; border:0 solid var(--c-light); }
+</style>

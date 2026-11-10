@@ -8,6 +8,9 @@ answers:
 - `STYLE.md`: the same style in words, with a section per mode. Every agent that writes an edit, builds a card or
   an effect reads it. Where STYLE.md is more specific than style.json, follow STYLE.md.
 - `brand.css` + `fonts/`: generated from style.json by `pipeline/style.py`. Never edited by hand.
+- `headshot.jpg` (optional): one square photo of the creator, at least 600 px. Effects that show who is talking
+  (a profile chip, a voice note) use it; without one they draw a placeholder. A project's own
+  `assets/headshot.*` wins over the pack's (`fxlib.headshot(project)` looks there first).
 
 Each project keeps a copy of the pack it was made with (`<project>/style/`), so changing the style never changes an
 old video.
@@ -28,7 +31,7 @@ old video.
 | `motion` | calm, normal, punchy | entrance speed, how often something new lands | cuts per minute and motion in `refs.py`'s summary |
 | `sound.sfx` | light, normal, dense | how many effects; light also sits them 3 dB lower | the inspiration by feel |
 | `sound.music` | none | music is added by the creator when they post | (a track is handed over per video) |
-| `creator` | name, handle, site | an end card, when asked for one | ask once |
+| `creator` | name, handle, site | an end card when asked for one; effects that name the creator (a profile chip, a byline) | ask once |
 
 ## How each mode edits for this creator (`modes`)
 The same creator should feel like themselves in every mode. Decide all three from the same evidence: the

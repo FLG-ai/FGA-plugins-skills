@@ -1,0 +1,53 @@
+<!-- intertitle (top, above the speaker, under the captions): a silent-film title card. An iris of black closes on the
+     speaker's face, holds tight on it and snaps shut; the card irises open from the centre on the creator's dark
+     ground, a thin double rule frame draws in (concave corners, small diamonds), the line sets word by word in the
+     display face, a diamond rule draws and the key words land under it, larger, in the display italic when the pack
+     has one. Film grain (mkgrain.py, g0..g3), exposure flicker and gate weave run on the card only. On the way out a
+     hole irises open from the face. Words, cue words, the face and times live in fx.js. -->
+<div id="{{ID}}-ink"></div>
+<div id="{{ID}}-card">
+  <div id="{{ID}}-weave">
+    <svg id="{{ID}}-frame" viewBox="0 0 1080 1920" width="1080" height="1920">
+      <rect class="{{ID}}-r {{ID}}-r1" x="100" y="340" width="880" height="1060" fill="none" pathLength="1"/>
+      <path class="{{ID}}-r {{ID}}-r2" pathLength="1" fill="none"
+        d="M152 356 H928 A36 36 0 0 0 964 392 V1348 A36 36 0 0 0 928 1384 H152 A36 36 0 0 0 116 1348 V392 A36 36 0 0 0 152 356 Z"/>
+      <g id="{{ID}}-orn">
+        <path d="M131 364 l7 7 -7 7 -7 -7 Z"/><path d="M949 364 l7 7 -7 7 -7 -7 Z"/>
+        <path d="M131 1362 l7 7 -7 7 -7 -7 Z"/><path d="M949 1362 l7 7 -7 7 -7 -7 Z"/>
+        <path d="M540 331 l9 9 -9 9 -9 -9 Z"/><path d="M540 1391 l9 9 -9 9 -9 -9 Z"/>
+      </g>
+    </svg>
+    <div id="{{ID}}-text">
+      <div id="{{ID}}-lines"></div>
+      <div id="{{ID}}-div"><i id="{{ID}}-dl"></i><b></b><i id="{{ID}}-dr"></i></div>
+      <div id="{{ID}}-key" class="{{ID}}-l"></div>
+    </div>
+  </div>
+  <img class="{{ID}}-g" id="{{ID}}-g0" src="fx/{{ID}}/g0.png" alt=""><img class="{{ID}}-g" id="{{ID}}-g1" src="fx/{{ID}}/g1.png" alt="">
+  <img class="{{ID}}-g" id="{{ID}}-g2" src="fx/{{ID}}/g2.png" alt=""><img class="{{ID}}-g" id="{{ID}}-g3" src="fx/{{ID}}/g3.png" alt="">
+  <div id="{{ID}}-flick"></div>
+</div>
+<style>
+#{{ID}}-ink { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); filter:brightness(0.3); }
+#{{ID}}-card { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); overflow:hidden; }
+#{{ID}}-weave { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}}-frame { position:absolute; left:0; top:0; }
+#{{ID}} .{{ID}}-r { stroke:var(--c-light); }
+#{{ID}} .{{ID}}-r1 { stroke-width:3px; }
+#{{ID}} .{{ID}}-r2 { stroke-width:1.5px; }
+#{{ID}}-orn { fill:var(--c-light); }
+#{{ID}}-text { position:absolute; left:130px; top:340px; width:820px; height:1060px; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; padding-bottom:10px; box-sizing:border-box; color:var(--c-light); text-align:center; }
+#{{ID}} .{{ID}}-l { font-family:var(--font-display); font-style:normal; font-weight:400; font-size:116px; line-height:1.1;
+  letter-spacing:-0.005em; white-space:nowrap; }
+#{{ID}} .{{ID}}-l span { display:inline-block; }
+#{{ID}} #{{ID}}-key { font-size:176px; line-height:1.02; letter-spacing:-0.015em; margin-top:6px; }
+#{{ID}}-div { position:relative; width:300px; height:22px; margin:40px 0 30px; }
+#{{ID}}-div i { position:absolute; top:10px; height:1.5px; width:128px; background:var(--c-light); }
+#{{ID}}-dl { left:0; transform-origin:100% 50%; }
+#{{ID}}-dr { right:0; transform-origin:0 50%; }
+#{{ID}}-div b { position:absolute; left:143.5px; top:4.5px; width:13px; height:13px; background:var(--c-light);
+  clip-path:polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+#{{ID}} .{{ID}}-g { position:absolute; left:0; top:0; width:1080px; height:1920px; opacity:0; }
+#{{ID}}-flick { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); filter:brightness(0); opacity:0; }
+</style>

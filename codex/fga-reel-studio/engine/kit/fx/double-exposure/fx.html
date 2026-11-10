@@ -1,0 +1,12 @@
+<!-- double-exposure (cam): gen.py rewrites this file. exposure.mp4 is the picture for this window, pre-rendered (frame 0
+     is the window's first frame, the speaker's lips are the live frames); fx.js sets the line over it as title credits
+     on the words. Run gen.py before the first build: until then there is no exposure.mp4. -->
+<video id="{{ID}}-v" src="fx/{{ID}}/exposure.mp4" muted playsinline data-start="{{START}}" data-media-start="0.0010" data-duration="{{DUR}}" data-track-index="{{T0}}" style="position:absolute;left:0;top:0;width:1080px;height:1920px;"></video>
+<div id="{{ID}}-credits"></div>
+<style>
+#{{ID}}-credits { position:absolute; left:0; top:1380px; width:1080px; height:110px; }
+#{{ID}} .{{ID}}-credit { position:absolute; left:0; top:0; width:1080px; text-align:center; opacity:0; }
+#{{ID}} .{{ID}}-role { display:inline-block; font-family:var(--font-text); font-weight:400; font-size:36px; line-height:44px; white-space:nowrap; color:var(--c-muted-dark); }
+#{{ID}} .{{ID}}-name { display:inline-block; font-family:var(--font-display); font-style:var(--display-style); font-weight:var(--display-weight); font-size:50px; line-height:56px; letter-spacing:.26em; padding-left:.26em; white-space:nowrap; color:var(--c-light); }
+#{{ID}} .{{ID}}-line { display:block; height:auto; }
+</style>

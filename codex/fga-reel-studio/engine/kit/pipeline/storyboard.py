@@ -149,7 +149,9 @@ def describe(E, TL, a, b, words):
     emph = [f"{c[1].replace('*', '').rstrip('.,!?')} ({KIND_WORDS[c[2]]})" for c in caps if c[2] in KIND_WORDS]
     accent = [m.rstrip('.,!?') for c in caps for m in re.findall(r"\*([^*]+)\*", c[1]) if c[2] != "big"]
     sounds = []
-    for item in sorted(list(E.SOUND.get("sfx", [])) + list(E.CARD_SFX), key=lambda x: x[0]):
+    items = [(it["at"], it["name"]) if isinstance(it, dict) else tuple(it[:2])        # dict(at=, name=, ...) too
+             for it in list(E.SOUND.get("sfx", [])) + list(E.CARD_SFX)]
+    for item in sorted(items, key=lambda x: x[0]):
         if a - 0.25 <= item[0] < b - 0.25:
             w = SFX_WORDS.get(item[1], item[1].replace("-", " "))
             if not sounds or sounds[-1] != w:

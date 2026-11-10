@@ -10,13 +10,14 @@ import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import KIT, VENDOR  # noqa: E402
+from common import KIT, VENDOR, VERSION  # noqa: E402
 import style as ST  # noqa: E402
 
 STARTER = '''"""{title}: the one file that describes this video. Read modes/{mode_doc}, then copy what you need from
 examples/{mode}/edit.py. Times are on the OUTPUT timeline unless marked source."""
 TITLE = "{title}"
 STYLE = "{mode}"                    # hifi (modes/HIFI.md), lofi (modes/LOFI.md) or showcase (modes/SHOWCASE.md)
+KIT_VERSION = "{version}"              # the reel-kit release this project was started on (see CHANGELOG.md)
 SRC = "{src}"
 
 # ---- cut (source seconds): keep ranges from silencedetect, last clean take of every line
@@ -80,7 +81,7 @@ def frames_for(src):
 
 
 def copy_pack(project):
-    """the creator's style pack (style.json, brand.css, fonts/) -> <project>/style/"""
+    """the creator's style pack (style.json, brand.css, fonts/, their headshot) -> <project>/style/"""
     src = ST.STYLE_DIR
     if not os.path.exists(os.path.join(src, "style.json")):
         sys.exit(f"no style pack at {src}: run onboarding first (onboarding/ONBOARDING.md), or point REEL_KIT_HOME at one")
@@ -89,7 +90,7 @@ def copy_pack(project):
     S = ST.load(os.path.join(src, "style.json"))
     if not os.path.exists(os.path.join(src, "brand.css")):
         ST.write(S, src)
-    for f in ("style.json", "brand.css", "STYLE.md"):
+    for f in ("style.json", "brand.css", "STYLE.md") + tuple(f"headshot.{x}" for x in ("jpg", "jpeg", "png", "webp")):
         if os.path.exists(os.path.join(src, f)):
             shutil.copy(os.path.join(src, f), dest)
     if os.path.isdir(os.path.join(src, "fonts")):
@@ -122,7 +123,7 @@ def main():
     shutil.copytree(VENDOR, os.path.join(project, "public", "vendor"), dirs_exist_ok=True)
     shutil.copy(os.path.join(KIT, "kit", "hyperframes.json"), os.path.join(project, "public"))
     with open(os.path.join(project, "edit.py"), "w") as fh:
-        fh.write(STARTER.format(title=title, src=src, mode=mode, mode_doc=f"{mode.upper()}.md", hold=0.6 if mode == "hifi" else 0.04 if mode == "lofi" else 0.5,
+        fh.write(STARTER.format(version=VERSION, title=title, src=src, mode=mode, mode_doc=f"{mode.upper()}.md", hold=0.6 if mode == "hifi" else 0.04 if mode == "lofi" else 0.5,
                                 frames=frames_for(src), extra=EXTRA.get(mode, "")))
     print(project)
 

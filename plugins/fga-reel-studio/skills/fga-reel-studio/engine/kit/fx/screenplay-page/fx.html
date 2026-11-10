@@ -1,0 +1,24 @@
+<!-- screenplay-page (top, above the speaker): the whole frame becomes a screenplay page of the speaker's own lines, in
+     true screenplay layout in the pack's mono face (one column = one mono advance, one row = one line): a scene heading
+     outdented, the character cue and parenthetical centred over a narrow dialogue column, CUT TO: flush to its right
+     edge. What was already said is dimmed, the line being spoken is full ink and an accent highlighter sweeps under
+     each word as it is said; the next scene sits dimmed below. fx.js builds the page from words.json around the
+     window (the constants say how many sentences); the highlighter only ever follows spoken words. -->
+<div id="{{ID}}-page">
+  <div id="{{ID}}-sheet">
+    <div id="{{ID}}-mk"></div>
+    <div id="{{ID}}-tx"></div>
+  </div>
+</div>
+<style>
+#{{ID}}-page { position:absolute; left:-90px; top:-120px; width:1260px; height:2160px; background:var(--c-light);
+  box-shadow:0 -10px 40px color-mix(in srgb, var(--c-dark) 30%, transparent); }
+#{{ID}}-sheet { position:absolute; left:90px; top:120px; width:1080px; height:1920px; font-family:var(--font-mono);
+  font-weight:400; font-size:42px; line-height:42px; }
+#{{ID}}-mk, #{{ID}}-tx { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}} .{{ID}}-l { position:absolute; left:0; white-space:pre; color:var(--c-ink); }
+#{{ID}} .{{ID}}-dim { opacity:0.34; }
+#{{ID}} .{{ID}}-hd { opacity:0.5; }
+#{{ID}} .{{ID}}-m { position:absolute; display:block; height:38px; border-radius:calc(var(--radius) * 0.6);
+  background:color-mix(in srgb, var(--c-accent) 52%, transparent); transform-origin:0 50%; }
+</style>

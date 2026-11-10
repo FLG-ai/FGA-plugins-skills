@@ -23,6 +23,7 @@ except ImportError:
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import FPS, KIT, MODELS, project_arg  # noqa: E402
+import fxlib  # noqa: E402
 
 MODEL = os.path.join(MODELS, "rvm_resnet50_fp32.torchscript")
 MODEL_URL = "https://github.com/PeterL1n/RobustVideoMatting/releases/download/v1.0.0/rvm_resnet50_fp32.torchscript"
@@ -62,12 +63,12 @@ def main():
     dev = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     ensure_model()
     model = torch.jit.load(MODEL, map_location=dev).eval()
-    dec = subprocess.Popen(["ffmpeg", "-v", "error", *trim, "-i", src, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
+    dec = subprocess.Popen(["ffmpeg", "-v", "error", *trim, "-i", src, "-vf", fxlib.ACCURATE, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
                            stdout=subprocess.PIPE)
     enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{W}x{H}",
                             "-r", str(FPS), "-i", "-", "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-b:v", "0",
                             "-crf", "18", "-row-mt", "1", "-deadline", "good", "-cpu-used", "2", "-auto-alt-ref", "0",
-                            out], stdin=subprocess.PIPE)
+                            *fxlib.ENCODE, out], stdin=subprocess.PIPE)   # bt709 both ways: the cutout lands at the footage's own levels
     rec, n = [None] * 4, 0
     with torch.no_grad():
         while True:

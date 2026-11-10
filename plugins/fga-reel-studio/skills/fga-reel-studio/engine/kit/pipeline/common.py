@@ -12,6 +12,13 @@ import sys
 
 KIT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))     # this repo
 HOME = os.path.expanduser(os.environ.get("REEL_KIT_HOME", "~/reel-kit"))  # the creator's style, projects, the kit's tools
+BIN = os.path.join(HOME, "tools", "bin")                  # ffmpeg, ffprobe and Node that setup fetched, when it had to
+if os.path.isdir(BIN):
+    os.environ["PATH"] = BIN + os.pathsep + os.environ.get("PATH", "")   # every subprocess below finds them first
+try:
+    VERSION = open(os.path.join(KIT, "VERSION")).read().strip()                 # the kit release (VERSION file)
+except OSError:
+    VERSION = "unknown"
 
 
 def _venv_py(root):
@@ -38,8 +45,9 @@ def q(t):
 
 
 def clip_start(t):
-    """a clip's data-start for the frame that holds t: 2ms early so the renderer never shows it a frame late"""
-    return max(0.0, q(t) - 0.002)                 # never negative: a clip at 0 trips the hyperframes static guard
+    """a clip's data-start for the frame that holds t: 2ms early so the renderer never shows it a frame late (never
+    before 0: a negative data-start fails the check)"""
+    return max(0.0, q(t) - 0.002)
 
 
 def project_arg():

@@ -1,0 +1,59 @@
+<!-- title-card-dive (cam). Part 1: a documentary title card, a hard cut to the dark ground: the video's own running
+     timecode in mono, the title set in display caps word by word on its words, an accent rule, hard cut out.
+     Part 2: the live shot (a synced copy of clean.mp4, class g) shrinks into a generic phone on the dark ground that
+     plays this very video with a minimal player (thin progress bar, the true time / the total); the camera pushes,
+     then dives into the screen and lands full frame on the effect's last frame, identical to the picture under it.
+     The device is drawn at screen size (1080x1920) and scaled down in fx.js. Words, cues and times: fx.js. -->
+<div id="{{ID}}-card">
+  <div id="{{ID}}-tc" data-layout-allow-overlap>00:00:00:00</div>
+  <div id="{{ID}}-title" data-layout-allow-overlap></div>
+  <div id="{{ID}}-rule"></div>
+</div>
+
+<div id="{{ID}}-stage">
+  <div id="{{ID}}-bg"></div>
+  <div id="{{ID}}-dev" data-layout-allow-overflow>
+    <div class="{{ID}}-btn" style="left:-86px; top:430px; height:150px;"></div>
+    <div class="{{ID}}-btn" style="left:-86px; top:640px; height:250px;"></div>
+    <div class="{{ID}}-btn" style="left:1126px; top:560px; height:300px;"></div>
+    <div id="{{ID}}-body"></div>
+    <div id="{{ID}}-bez"></div>
+    <div id="{{ID}}-scr">
+      <video id="{{ID}}-v" class="{{ID}}-vid g" src="clean.mp4" muted playsinline data-start="{{START}}" data-media-start="{{SYNC}}" data-duration="{{DUR}}" data-track-index="{{T0}}"></video>
+      <div id="{{ID}}-chrome">
+        <div id="{{ID}}-time" data-layout-allow-overlap><span id="{{ID}}-now" data-layout-allow-overlap>0:00</span><span id="{{ID}}-tot" data-layout-allow-overlap> / 0:00</span></div>
+        <div id="{{ID}}-track"><div id="{{ID}}-fill"></div><div id="{{ID}}-head"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#{{ID}}-card { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); }
+#{{ID}}-tc { position:absolute; left:0; top:640px; width:1080px; text-align:center; font-family:var(--font-mono);
+  font-weight:500; font-size:30px; line-height:1; letter-spacing:.22em; color:var(--c-accent); white-space:nowrap; }
+#{{ID}}-title { position:absolute; left:0; top:720px; width:1080px; text-align:center; font-family:var(--font-display);
+  font-style:var(--display-style); font-weight:var(--display-weight); font-size:150px; }
+#{{ID}} .{{ID}}-ln { height:1.04em; overflow:hidden; }
+#{{ID}} .{{ID}}-w { display:inline-block; font-size:1em; line-height:1.04em; letter-spacing:.02em; white-space:nowrap;
+  text-transform:uppercase; color:var(--c-light); }
+#{{ID}}-rule { position:absolute; left:460px; top:1210px; width:160px; height:4px; background:var(--c-accent); transform-origin:50% 50%; }
+
+#{{ID}}-stage { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}}-bg { position:absolute; left:0; top:0; width:1080px; height:1920px; background:var(--c-dark); }
+#{{ID}}-dev { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}}-body { position:absolute; left:-64px; top:-64px; width:1208px; height:2048px; border-radius:160px; background:var(--c-light);
+  box-shadow:0 60px 120px color-mix(in srgb, var(--c-ink) 35%, transparent); }
+#{{ID}} .{{ID}}-btn { position:absolute; width:40px; border-radius:16px; background:color-mix(in srgb, var(--c-light) 84%, var(--c-ink)); }
+#{{ID}}-bez { position:absolute; left:-20px; top:-20px; width:1120px; height:1960px; border-radius:118px; background:var(--c-ink); }
+#{{ID}}-scr { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; background:var(--c-ink); }
+#{{ID}} .{{ID}}-vid { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
+#{{ID}}-chrome { position:absolute; left:0; top:1700px; width:1080px; height:220px; }
+#{{ID}}-time { position:absolute; left:70px; top:40px; font-family:var(--font-mono); font-weight:500; font-size:46px; line-height:1;
+  letter-spacing:.02em; color:var(--c-light); white-space:nowrap; }
+#{{ID}}-tot { color:color-mix(in srgb, var(--c-light) 60%, transparent); }
+#{{ID}}-track { position:absolute; left:70px; top:130px; width:940px; height:8px; border-radius:4px;
+  background:color-mix(in srgb, var(--c-light) 32%, transparent); }
+#{{ID}}-fill { position:absolute; left:0; top:0; width:940px; height:8px; border-radius:4px; background:var(--c-light); transform-origin:0 50%; }
+#{{ID}}-head { position:absolute; left:-14px; top:-10px; width:28px; height:28px; border-radius:14px; background:var(--c-light); }
+</style>

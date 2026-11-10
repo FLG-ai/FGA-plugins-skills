@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Effects</title>
+<style>
+/* My Effects (pipeline/effect.py library): every effect this kit can use, the creator's own first, in their own fonts
+   and colours (__THEME__ below comes from their style pack, like the storyboard). */
+__THEME__
+:root { --serif: var(--font-display); --sans: var(--font-text); --mono: var(--font-mono); --forest: var(--accent); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 15px/1.5 var(--sans); padding: 28px 16px 64px; }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 34px; }
+header { display: grid; gap: 8px; padding-bottom: 20px; border-bottom: 1px solid var(--hair); }
+h1 { font: 500 44px/1.05 var(--serif); margin: 0; }
+.lede { margin: 0; color: var(--muted); max-width: 66ch; }
+.lede b { color: var(--ink); font-weight: 600; }
+.search { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 8px; }
+.search input { flex: 1 1 260px; max-width: 420px; font: inherit; color: var(--ink); background: var(--sheet);
+  border: 1px solid var(--hair); border-radius: 999px; padding: 10px 16px; }
+.search input:focus-visible, summary:focus-visible, video:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.shown { font: 400 13px/1 var(--mono); color: var(--muted); }
+.group { display: grid; gap: 10px; }
+.ghead { display: flex; align-items: baseline; gap: 10px; }
+h2 { font: 500 30px/1.1 var(--serif); margin: 0; }
+.count { font: 500 13px/1 var(--mono); color: var(--muted); }
+.note { margin: 0 0 6px; color: var(--muted); max-width: 66ch; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--sheet); border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.media { aspect-ratio: 9 / 16; background: #000; position: relative; }
+.media video, .media img { width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer; }
+.media img { cursor: default; }
+.media .none { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font: 400 12px/1 var(--mono); }
+.media .snd { position: absolute; right: 8px; bottom: 8px; font: 500 10px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+  color: #FFFFFF; background: rgba(0, 0, 0, .62); padding: 5px 7px; border-radius: 4px; pointer-events: none; }
+.body { padding: 14px 14px 16px; display: grid; gap: 8px; align-content: start; }
+h3 { font: 500 23px/1.1 var(--serif); margin: 0; }
+.tag { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 10px; font: 400 12px/1.4 var(--mono); color: var(--muted); }
+.tag span:first-child { color: var(--forest); }
+.reach { margin: 0; }
+.reach b, .supply b { display: block; font: 500 11px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+details { border-top: 1px solid var(--hair); padding-top: 8px; font-size: 14px; }
+summary { cursor: pointer; font: 500 12px/1.4 var(--mono); color: var(--muted); }
+details p { margin: 8px 0 0; }
+code { font: 400 .88em var(--mono); overflow-wrap: anywhere; }
+.empty { color: var(--muted); }
+.guide { display: grid; margin-top: 14px; border-top: 1px solid var(--hair); }
+.gcol { border-bottom: 1px solid var(--hair); padding: 0; font-size: 15px; }
+.gcol > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 2px; cursor: pointer; color: var(--ink); font: inherit; }
+.gcol > summary::-webkit-details-marker { display: none; }
+.gcol > summary::after { content: "+"; font: 400 26px/1 var(--sans); color: var(--muted); }
+.gcol[open] > summary::after { content: "−"; }
+.gcol > .how { margin-bottom: 14px; }
+.gcol:last-child { border-bottom: 0; }
+.gh { font: 500 24px/1.1 var(--serif); margin: 0; }
+.after { margin: -2px 0 16px; font-size: 14px; color: var(--muted); }
+.how { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); gap: 12px; counter-reset: s; }
+.how li { counter-increment: s; background: var(--sheet); border: 1px solid var(--hair); border-radius: 10px; padding: 14px; font-size: 14px; color: var(--muted); }
+.opts li::before { content: none !important; }
+.how li::before { content: counter(s); display: block; font: 500 26px/1 var(--serif); color: var(--forest); margin-bottom: 6px; }
+.how b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
+.how code { display: block; margin: 2px 0 6px; padding: 7px 9px; background: var(--paper); border: 1px solid var(--hair); border-radius: 6px; color: var(--ink); }
+.name { font: inherit; color: var(--forest); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.name:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+[hidden] { display: none !important; }
+@media (max-width: 560px) { .how { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { h1 { font-size: 36px; } .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; } h3 { font-size: 20px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>My Effects</h1>
+    <p class="lede">Every effect Claude can use in your videos: <b>__TOTAL__</b> in all. Tap a name to copy it, or let the
+      edit pick for you. Previews play on their own; tap one for sound.</p>
+    <div class="search"><input id="q" type="search" placeholder="Search: captions, cutout, a word you'll say" aria-label="Search effects"><span class="shown" id="shown" aria-live="polite"></span></div>
+    <div class="guide">
+      <details class="gcol">
+        <summary><h2 class="gh">How to use effects</h2></summary>
+        <ol class="how">
+          <li><b>Name it in your request</b><code>__CMD__showcase take.mov, sized-words on "a little bit different"</code>Named effects go on those lines first; Claude picks the rest.</li>
+          <li><b>Or on the storyboard</b>Comment on any beat: <code>make this one presenter-card</code>Close is fine ("the receipt one"); Claude tells you which it picked.</li>
+        </ol>
+      </details>
+      <details class="gcol">
+        <summary><h2 class="gh">How to create new effects</h2></summary>
+        <ul class="how opts">
+          <li><b>With a URL</b><code>__CMD__effect https://www.instagram.com/reel/... 17-19</code>Paste the link and the seconds the effect plays. No timer on Instagram? Describe it ("the text right after the hook") and Claude finds it.</li>
+          <li><b>With a video file</b><code>__CMD__effect clip.mp4 17-19</code>A video you downloaded and the seconds. The most exact option, since your player shows the time.</li>
+        </ul>
+        <p class="after">Either way you get a side-by-side to keep, fix or drop, and keeps land under Your effects. Not in Claude Code? Ask in plain words: "make a new effect from this video, 17 to 19 seconds".</p>
+      </details>
+    </div>
+  </header>
+__SECTIONS__
+  <p class="empty" id="empty" hidden>Nothing matches. Try a word from the line you're editing.</p>
+</div>
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var q = document.getElementById('q'), shown = document.getElementById('shown'), empty = document.getElementById('empty');
+
+  // Search: every word has to match somewhere on the card.
+  function filter() {
+    var words = q.value.toLowerCase().split(/\s+/).filter(Boolean), n = 0;
+    cards.forEach(function (c) {
+      var hit = words.every(function (w) { return c.dataset.find.indexOf(w) !== -1; });
+      c.hidden = !hit; if (hit) n++;
+    });
+    document.querySelectorAll('.group').forEach(function (g) { g.hidden = !g.querySelector('.card:not([hidden])'); });
+    shown.textContent = words.length ? n + ' of ' + cards.length : '';
+    empty.hidden = n > 0;
+  }
+  q.addEventListener('input', filter);
+
+  // Tap a name to copy it, ready to paste into a request or a storyboard note.
+  document.querySelectorAll('.name').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var n = b.dataset.name;
+      (navigator.clipboard ? navigator.clipboard.writeText(n) : Promise.reject()).then(function () {
+        b.textContent = 'copied'; setTimeout(function () { b.textContent = n; }, 1200);
+      }, function () {});
+    });
+  });
+
+  // Previews: play only while on screen, tap for sound; a missing clip falls back to the still.
+  var vids = Array.prototype.slice.call(document.querySelectorAll('.media video'));
+  vids.forEach(function (v) {
+    var tag = document.createElement('span'); tag.className = 'snd'; tag.textContent = 'Muted'; v.parentNode.appendChild(tag);
+    v.addEventListener('click', function () { v.muted = !v.muted; tag.textContent = v.muted ? 'Muted' : 'Sound on'; if (v.paused) v.play().catch(function () {}); });
+    v.addEventListener('error', function () {
+      var still = v.poster || v.dataset.still; if (!still) return;
+      var img = document.createElement('img'); img.src = still; img.alt = v.getAttribute('aria-label') || '';
+      tag.remove(); v.replaceWith(img);
+    });
+  });
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!still && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.preload = 'auto'; e.target.play().catch(function () {}); }
+        else e.target.pause();
+      });
+    }, { threshold: 0.35 });
+    vids.forEach(function (v) { io.observe(v); });
+  }
+})();
+</script>
+</body>
+</html>

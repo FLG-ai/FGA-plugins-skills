@@ -1,0 +1,25 @@
+<!-- video-backdrop-label (top, the same window as video-backdrop): the chapter label for the walkthrough behind the
+     speaker. A lower third above the caption band (POS in fx.js): the index in the accent in mono, the chapter's name
+     in the text face, a chapter rail under it. One label at a time: each chapter's label pushes in from the right
+     inside a clipped row on its word while the old one has already pushed out left (gone before the new one is in
+     view); the rail fills the chapter it is on. The box wipes open on the first chapter and wipes shut at the end
+     of the line. Labels, words and times live in fx.js (labels and rail are built from CHAPTERS). -->
+<div id="{{ID}}-box">
+  <div id="{{ID}}-row" data-layout-allow-overflow></div>
+  <div id="{{ID}}-rail"></div>
+</div>
+<style>
+#{{ID}}-box { position:absolute; left:0; top:0; width:500px; height:118px; background:var(--c-dark); border-radius:var(--radius);
+  box-shadow:0 12px 30px color-mix(in srgb, var(--c-dark) 30%, transparent); overflow:hidden; }
+#{{ID}}-row { position:absolute; left:0; top:0; width:100%; height:84px; overflow:hidden; }
+#{{ID}} .{{ID}}-l { position:absolute; left:0; top:0; width:100%; height:84px; padding:0 28px; box-sizing:border-box;
+  display:flex; align-items:center; gap:18px; white-space:nowrap; }
+#{{ID}} .{{ID}}-l b { font:600 26px/1 var(--font-mono); color:var(--c-accent); letter-spacing:.04em; padding-right:18px;
+  border-right:1.5px solid var(--c-hair-dark); }
+#{{ID}} .{{ID}}-l span { font-family:var(--font-text); font-weight:var(--text-weight); font-size:38px; line-height:1;
+  letter-spacing:-.02em; color:var(--c-light); }
+#{{ID}}-rail { position:absolute; left:28px; top:88px; height:6px; }
+#{{ID}} .{{ID}}-seg { position:absolute; top:0; height:6px; border-radius:3px; overflow:hidden;
+  background:color-mix(in srgb, var(--c-light) 24%, transparent); }
+#{{ID}} .{{ID}}-seg i { position:absolute; left:0; top:0; width:100%; height:100%; background:var(--c-light); transform-origin:0 50%; }
+</style>

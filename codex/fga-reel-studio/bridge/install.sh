@@ -67,7 +67,7 @@ have() { case " $INSTALL_SIM_MISSING " in *" $1 "*) return 1;; esac   # test hoo
   python312)      [ -n "$(bestpy)" ];;
   venv)           [ -x "$VENV_PY" ] && pyok "$VENV_PY";;
   node)           N=$(node -v 2>/dev/null | sed 's/v//' | cut -d. -f1); [ -n "$N" ] && [ "$N" -ge 22 ];;
-  kit)            have venv && [ -f "$HOME_RK/.setup-complete-0.3.3" ] && "$VENV_PY" "$KIT/setup/setup.py" --check >/dev/null 2>&1;;
+  kit)            have venv && [ -f "$HOME_RK/.setup-complete-0.4.0" ] && "$VENV_PY" "$KIT/setup/setup.py" --check >/dev/null 2>&1;;
   opencv)         have venv && "$VENV_PY" -c "import cv2, numpy" 2>/dev/null;;
   torch-gates)    [ -x "$VENV_PY" ] && "$VENV_PY" -c "import torch, transformers" 2>/dev/null;;
   matte)          [ -x "$VENV_PY" ] && "$VENV_PY" -c "import torch" 2>/dev/null;;

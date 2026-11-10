@@ -1,0 +1,43 @@
+<!-- playing-grid (behind the head): "here are my last six videos". A 3 x 2 grid of the creator's own videos (3:4
+     tiles, like a profile grid), every one PLAYING, falls from above the frame with weight, lands staggered across
+     the line (squash, one bounce, a swing to rest), each landing knocking the tiles already up; at the end of the
+     line they are yanked back up out of frame. slot = the static place (set from GRID in fx.js), fall = the drop,
+     rotation and squash, jolt = the knock when a later tile lands. Words and times live in fx.js.
+     The clips t1.mp4 .. t6.mp4 come from reel-cascade's mkclips.py (PY fx/reel-cascade/mkclips.py <project>
+     playing-grid --from ...): your videos, or placeholder stretches of the project's own clean.mp4 without --from
+     (labelled by PLACEHOLDER in fx.js). -->
+<div class="{{ID}}-slot" id="{{ID}}-s1"><div class="{{ID}}-fall"><div class="{{ID}}-jolt" data-layout-allow-overflow>
+  <video id="{{ID}}-v1" class="{{ID}}-v" src="fx/{{ID}}/t1.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T0}}"></video>
+  <span class="{{ID}}-tag"></span>
+</div></div></div>
+<div class="{{ID}}-slot" id="{{ID}}-s2"><div class="{{ID}}-fall"><div class="{{ID}}-jolt" data-layout-allow-overflow>
+  <video id="{{ID}}-v2" class="{{ID}}-v" src="fx/{{ID}}/t2.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T1}}"></video>
+  <span class="{{ID}}-tag"></span>
+</div></div></div>
+<div class="{{ID}}-slot" id="{{ID}}-s3"><div class="{{ID}}-fall"><div class="{{ID}}-jolt" data-layout-allow-overflow>
+  <video id="{{ID}}-v3" class="{{ID}}-v" src="fx/{{ID}}/t3.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T2}}"></video>
+  <span class="{{ID}}-tag"></span>
+</div></div></div>
+<div class="{{ID}}-slot" id="{{ID}}-s4"><div class="{{ID}}-fall"><div class="{{ID}}-jolt" data-layout-allow-overflow>
+  <video id="{{ID}}-v4" class="{{ID}}-v" src="fx/{{ID}}/t4.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T3}}"></video>
+  <span class="{{ID}}-tag"></span>
+</div></div></div>
+<div class="{{ID}}-slot" id="{{ID}}-s5"><div class="{{ID}}-fall"><div class="{{ID}}-jolt" data-layout-allow-overflow>
+  <video id="{{ID}}-v5" class="{{ID}}-v" src="fx/{{ID}}/t5.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T4}}"></video>
+  <span class="{{ID}}-tag"></span>
+</div></div></div>
+<div class="{{ID}}-slot" id="{{ID}}-s6"><div class="{{ID}}-fall"><div class="{{ID}}-jolt" data-layout-allow-overflow>
+  <video id="{{ID}}-v6" class="{{ID}}-v" src="fx/{{ID}}/t6.mp4" muted playsinline data-start="{{START}}" data-media-start="0" data-duration="{{DUR}}" data-track-index="{{T5}}"></video>
+  <span class="{{ID}}-tag"></span>
+</div></div></div>
+<style>
+#{{ID}} .{{ID}}-slot { position:absolute; left:0; top:0; width:296px; height:395px; }
+#{{ID}} .{{ID}}-fall, #{{ID}} .{{ID}}-jolt { position:relative; width:100%; height:100%; }
+#{{ID}} .{{ID}}-jolt { border-radius:var(--radius); overflow:hidden; border:5px solid var(--c-light); box-sizing:border-box;
+  background:var(--c-dark); box-shadow:0 16px 34px color-mix(in srgb, var(--c-dark) 40%, transparent),
+  0 3px 8px color-mix(in srgb, var(--c-dark) 26%, transparent); }
+#{{ID}} .{{ID}}-v { display:block; width:100%; height:100%; object-fit:cover; }
+#{{ID}} .{{ID}}-tag { position:absolute; left:12px; top:12px; padding:6px 8px 5px; border-radius:calc(var(--radius) * .66);
+  background:color-mix(in srgb, var(--c-dark) 78%, transparent); color:var(--c-light); font:500 14px/1 var(--font-mono);
+  letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+</style>

@@ -1,0 +1,54 @@
+<!-- receipt-printer, the motif (top): a slim printer bar drops in above the head and the instruction prints on a
+     thermal receipt that feeds UP out of its slot line by line on the speaker's words (header, the instruction in mono
+     caps, a TOTAL line), then it tears off and flies out, the printer lifts away. The same component, size, position
+     (centred on x 540) and move every time: gen.py writes each appearance from one BEATS table. The paper's lines,
+     height and torn edges are built by fx.js from its constants; every colour and font is a token. -->
+<div class="rc-root" data-layout-allow-overflow data-layout-allow-overlap>
+  <div class="rc-bar"><div class="rc-slit"></div><svg class="rc-teeth" viewBox="0 0 436 5"><path class="rc-tp" d=""/></svg><div class="rc-tick"></div><div class="rc-led"></div></div>
+  <div class="rc-clip" data-layout-allow-overflow data-layout-allow-overlap>
+    <div class="rc-stub"></div>
+    <div class="rc-fly">
+      <div class="rc-paper">
+        <div class="rc-row rc-h1"><span class="rc-k1"></span><span class="rc-num"></span></div>
+        <div class="rc-row rc-h2"><span class="rc-stamp"></span><span class="rc-k2"></span></div>
+        <div class="rc-dash"></div>
+        <div class="rc-lines"></div>
+        <div class="rc-dots"></div>
+        <div class="rc-row rc-total"><span class="rc-k3"></span><span class="rc-k4"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+/* frame space before the scale: the slot line is y 0 of .rc-root (fx.js moves it to SLOT and scales about x 540) */
+#{{ID}} .rc-root { position:absolute; left:0; top:0; width:1080px; height:10px; }
+#{{ID}} .rc-bar { position:absolute; left:302px; top:-11px; width:476px; height:40px; border-radius:min(20px, calc(var(--radius) * 2));
+  background:var(--c-dark);
+  box-shadow:0 12px 26px color-mix(in srgb, var(--c-dark) 40%, transparent), 0 2px 5px color-mix(in srgb, var(--c-dark) 28%, transparent),
+    inset 0 0 0 1.5px color-mix(in srgb, var(--c-light) 13%, transparent), inset 0 2px 0 color-mix(in srgb, var(--c-light) 10%, transparent); }
+#{{ID}} .rc-slit { position:absolute; left:20px; top:6px; width:436px; height:10px; border-radius:5px;
+  background:color-mix(in srgb, var(--c-dark) 55%, var(--c-ink)); }
+#{{ID}} .rc-teeth { position:absolute; left:20px; top:16px; width:436px; height:5px; }
+#{{ID}} .rc-tp { fill:var(--c-accent); fill-opacity:.75; }
+#{{ID}} .rc-led { position:absolute; left:446px; top:24px; width:9px; height:9px; border-radius:5px; background:var(--c-accent); }
+#{{ID}} .rc-tick { position:absolute; left:26px; top:27px; width:56px; height:4px; border-radius:2px; background:var(--c-hair-dark); }
+/* everything above the slot line; the paper starts below it (hidden) and steps up */
+#{{ID}} .rc-clip { position:absolute; left:0; top:-1200px; width:1080px; height:1200px; overflow:hidden; }
+#{{ID}} .rc-stub { position:absolute; left:338px; top:1194px; width:404px; height:30px;
+  background:color-mix(in srgb, var(--c-light) 88%, var(--c-ink)); }
+#{{ID}} .rc-fly { position:absolute; left:338px; top:1200px; width:404px; height:304px;
+  filter:drop-shadow(0 7px 10px color-mix(in srgb, var(--c-dark) 34%, transparent)); }
+#{{ID}} .rc-paper { position:absolute; left:0; top:0; width:404px; height:304px; background:var(--c-light);
+  font-family:var(--font-mono); color:var(--c-ink); }
+#{{ID}} .rc-row { position:absolute; left:30px; width:344px; display:flex; justify-content:space-between; white-space:nowrap; }
+#{{ID}} .rc-h1 { top:18px; height:26px; font-size:20px; line-height:26px; font-weight:700; letter-spacing:.16em; }
+#{{ID}} .rc-h2 { top:46px; height:22px; font-size:17px; line-height:22px; font-weight:500; letter-spacing:.08em;
+  color:color-mix(in srgb, var(--c-ink) 60%, var(--c-light)); }
+#{{ID}} .rc-dash { position:absolute; left:30px; top:76px; width:344px; height:0;
+  border-top:2px dashed color-mix(in srgb, var(--c-ink) 45%, var(--c-light)); }
+#{{ID}} .rc-line { position:absolute; left:30px; width:344px; height:48px; font-size:36px; line-height:48px; font-weight:600;
+  letter-spacing:-.01em; white-space:nowrap; }
+#{{ID}} .rc-dots { position:absolute; left:30px; top:238px; width:344px; height:0;
+  border-top:3px dotted color-mix(in srgb, var(--c-ink) 55%, var(--c-light)); }
+#{{ID}} .rc-total { top:248px; height:36px; font-size:24px; line-height:36px; font-weight:700; letter-spacing:.06em; }
+</style>

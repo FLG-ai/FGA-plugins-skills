@@ -9,7 +9,8 @@
 // Change only these constants:
 //   MOVES     which moves, in order. They cycle over the cuts that get one (a skipped cut does not use one up).
 //   SKIP      cuts a full-frame graphic already covers (a card, a grid, a cover): no move there. Seconds on the
-//             output timeline, matched within 0.1 s.
+//             output timeline, matched within 0.1 s. A cut that a cam or over effect starts on, runs across or ends on
+//             is left to that effect without being listed here.
 //   STRENGTH  per move: 1 is the reference look, 0.5 half the travel, turn, zoom and blur, 0 switches it off.
 //   MOVE      the moves themselves: frames out (before the cut) and in (after it), 4 to 8 a side, and their peaks.
 // Sound, one per move on the cut: whoosh (whip), whoosh-deep (zoom, drop), whoosh-soft (spin, push, reveal),
@@ -85,7 +86,7 @@ CUTS.forEach(function (cut) {
   if (cut <= A || cut >= B || !MOVES.length) return;
   if (SKIP.some(function (t) { return Math.abs(t - cut) < 0.1; })) return;
   if (FXS.some(function (f) { return f.id !== '{{ID}}' && (f.layer === 'cam' || f.layer === 'over') &&
-                                     Math.abs(f.at - cut) < 0.1; })) return;   // a full-frame effect starts on this cut: it is the transition
+                                     f.at < cut + 0.1 && f.end > cut - 0.1; })) return;   // a full-frame effect starts on, spans or ends on this cut: it is the transition
   var c = Math.round(cut * FPS);
   if (c <= last) return;                                        // too close to the last move to get its own
   var name = MOVES[used % MOVES.length], m = MOVE[name];

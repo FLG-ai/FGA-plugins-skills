@@ -36,7 +36,7 @@ def main():
                          (os.path.join(sb, "assets"), os.path.join(project, "assets")),
                          (os.path.join(sb, "audio"), os.path.join(project, "audio")),
                          (os.path.join(sb, "style"), os.path.join(project, "style"))]:   # the project's own pack
-        if not os.path.lexists(link):
+        if not os.path.lexists(link) and os.path.exists(target):
             os.symlink(target, link)
     for f in os.listdir(ppub):                     # heavy media and vendor: links; index.html and snapshots: own
         if f in ("index.html", "snapshots", "fx"):

@@ -77,6 +77,11 @@ def under_fx(E, t):
     return False
 
 
+def under_top(E, t):
+    """is t inside a top-layer effect? A card or panel there can cover the face, so a sample there is a last resort"""
+    return any(F.get("layer", "top") == "top" and F["at"] <= t < B.T(E, F["end"]) for F in getattr(E, "FX", []))
+
+
 def lip_sync(render, E, TL, span=0.6):
     """For two quiet moments in every on-camera piece, decode the rendered frame and the source frames around the
     second you hear at that moment (frame-exact seeks, the same way cut.py extracts), crop the source the way the
@@ -92,11 +97,13 @@ def lip_sync(render, E, TL, span=0.6):
                  if B.visible(E, t) and not cam_scale(E, TL, t)[1] and not under_fx(E, t)]
         if not cands:
             continue
+        clear = [t for t in cands if not under_top(E, t)]       # samples where nothing on top can cover the face
+        cands = clear or cands
         for t in sorted({cands[len(cands) // 3], cands[(2 * len(cands)) // 3]}):
-            jobs.append((round(float(t), 3), p))
+            jobs.append((round(float(t), 3), p, not clear))
     res = []
     with ThreadPoolExecutor(8) as ex:
-        for t, p in jobs:
+        for t, p, covered in jobs:
             g = [k for k in keep if k["out"] - 1e-6 <= t][-1]
             want = g["src_in"] + (t - g["out"])                      # the source second you hear at t
             s, _ = cam_scale(E, TL, t)
@@ -114,6 +121,8 @@ def lip_sync(render, E, TL, span=0.6):
             k = int(np.argmax(cs))
             far = [c for o, c in zip(offs, cs) if abs(o - offs[k]) > 0.1]
             note = "static (inconclusive)" if far and cs[k] - max(far) < 0.004 else ""
+            if covered and not note and abs(offs[k]) > 2.5 / FPS:
+                note = "under a top effect that may cover the face (inconclusive: check this frame by eye)"
             res.append((t, round(float(offs[k]), 3), round(float(cs[k]), 3), note))
     return res
 

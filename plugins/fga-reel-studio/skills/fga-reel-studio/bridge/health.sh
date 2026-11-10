@@ -70,7 +70,7 @@ if [ "$LANE" = "quick" ] || [ "$LANE" = "all" ]; then
 fi
 
 if [ "$LANE" != "quick" ]; then
-  [ -f "$HOME_RK/.setup-complete-0.3.3" ] && ok "full setup" "successful setup recorded, current render still needs QA" || miss "full setup" "setup has not completed successfully for this release" "bash \"$STUDIO/bridge/install.sh\" run kit"
+  [ -f "$HOME_RK/.setup-complete-0.4.0" ] && ok "full setup" "successful setup recorded, current render still needs QA" || miss "full setup" "setup has not completed successfully for this release" "bash \"$STUDIO/bridge/install.sh\" run kit"
 fi
 # gates
 echo "--- Gates"

@@ -1,0 +1,32 @@
+<!-- film-look: the film look, only on this line. On the cue word a hard wipe with a light edge carries a film-graded
+     copy of the footage across the full frame (no bars), landing on the next word with a small punch that settles.
+     Everything lives in the gate, clipped by the wipe: the copy in the film look (a CSS filter plus a split tone:
+     teal shadows, warm highlights), a soft vignette, seeded film grain moved every frame and a 1-2 px gate weave.
+     Hard return to the video's own look at B. Words, times and the look: fx.js. The copy is timed by the build from
+     the effect's window ({{START}}, {{SYNC}}, {{DUR}}). grain.png comes from make_grain.py. -->
+<svg id="{{ID}}-defs" width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <filter id="{{ID}}-tone" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feComponentTransfer>
+      <feFuncR id="{{ID}}-tr" type="table" tableValues="0 1"/>
+      <feFuncG id="{{ID}}-tg" type="table" tableValues="0 1"/>
+      <feFuncB id="{{ID}}-tb" type="table" tableValues="0 1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
+<div id="{{ID}}-gate">
+  <video id="{{ID}}-v" class="full" src="clean.mp4" muted playsinline data-start="{{START}}" data-media-start="{{SYNC}}" data-duration="{{DUR}}" data-track-index="{{T0}}"></video>
+  <div id="{{ID}}-vig" data-layout-allow-overflow data-layout-allow-overlap data-layout-allow-occlusion></div>
+  <div id="{{ID}}-grain" data-layout-allow-overflow data-layout-allow-overlap data-layout-allow-occlusion><div id="{{ID}}-gt" data-layout-allow-overflow style="background-image:url(fx/{{ID}}/grain.png)"></div></div>
+</div>
+<div id="{{ID}}-edge" data-layout-allow-overlap data-layout-allow-occlusion></div>
+<style>
+#{{ID}}-gate { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; clip-path:inset(0px 1080px 0px 0px); }
+/* the vignette: an inset shadow inside an ellipse bigger than the frame (dark at the rim, clear over the face), and
+   the same dark outside it. Desaturated: a lens darkens, it doesn't tint */
+#{{ID}}-vig { position:absolute; left:-260px; top:-300px; width:1600px; height:2520px; border-radius:50%; filter:grayscale(1);
+  box-shadow:inset 0 0 300px 120px color-mix(in srgb, var(--c-dark) 48%, transparent),
+             0 0 0 1600px color-mix(in srgb, var(--c-dark) 48%, transparent); }
+#{{ID}}-grain { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; mix-blend-mode:overlay; opacity:.26; }
+#{{ID}}-gt { position:absolute; left:0; top:0; width:1592px; height:2432px; background-repeat:repeat; background-size:512px 512px; }
+#{{ID}}-edge { position:absolute; left:-3px; top:0; width:6px; height:1920px; background:var(--c-light); }
+</style>

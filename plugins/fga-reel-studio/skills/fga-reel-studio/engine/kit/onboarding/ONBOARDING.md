@@ -91,7 +91,10 @@ How each mode edits, by feel (the `modes` section; `kit/STYLE_PACK.md`):
   `contrast(1.12) saturate(1.05)`, muted `saturate(.8) contrast(1.06)`.
 - `motion`: calm, normal or punchy. `sound.sfx`: light, normal or dense. `sound.music`: "none" (they add music in
   their posting app; a connected music generator can change that per video).
-- `creator`: name, handle, site. Ask once; used only on an end card, and only when they ask for one.
+- `creator`: name, handle, site. Ask once; used on an end card when they ask for one, and by effects that name
+  them (a profile chip, a byline). In the same message ask for one square photo of them (a headshot; optional,
+  skip it if they have none): save it as `$REEL_KIT_HOME/style/headshot.jpg`, cropped square, at least 600 px.
+  Effects that show who is talking use it; without one they draw a placeholder.
 - `modes`: how hi-fi, lo-fi and showcase each edit for this creator (every field and how to read it off a brand
   file or a video: `kit/STYLE_PACK.md`). This is where their inspiration matters most: the caption rhythm, the
   camera language, the transitions and how a big word lands all come from what their references do, and they carry
@@ -110,7 +113,7 @@ their colours and what each means, a frame of their own footage in each mode (th
 lo-fi text box and captions as their `modes.lofi` says, the showcase emphatic word), three cards in their style.
 Show it:
 - With Claude artifacts: publish `board/index.html` with every file listed in `board/files.json` (icon "palette").
-- Otherwise: run `python3 storyboard/serve.py <style dir>/board` in the background and send them the address.
+- Otherwise: run `PY KIT/storyboard/serve.py <style dir>/board` in the background and send them the address.
 
 Ask: "Does this look like you?" Apply what they say to `style.json` and `STYLE.md`, rerun `style.py` and
 `board.py`, show it again. When they say yes, the first video starts.

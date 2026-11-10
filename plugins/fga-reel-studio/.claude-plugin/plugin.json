@@ -1,6 +1,6 @@
 {
   "name": "fga-reel-studio",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "FGA Reel Studio: the full reel editor. A quick lane plus the reel-kit lanes, one style folder, checks before every render.",
   "author": { "name": "Farris Green", "url": "https://farrisgreen.ai" }
 }

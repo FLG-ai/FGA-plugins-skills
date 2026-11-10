@@ -1,0 +1,44 @@
+<!-- LIBRARY COPY, written by gen.py on the kit's stand-in line so this folder renders as it is. For a video, run
+     gen.py on the project: it rewrites this file from that video's words, voice and footage. -->
+<!-- incoming-call: written by gen.py for this window (rerun it when the window or the cut changes). A phone's call
+     banner, generic (no phone's UI copied, glyphs drawn by gen.py): it keeps a phone's own colours, the type is the
+     pack's. It drops in on a word, buzzes in pairs while the speaker ignores it, a tap declines it, "Call declined" for half a
+     second. -->
+<div id="{{ID}}-pillrow" style="top:400px;height:68.0px">
+  <div id="{{ID}}-pillw" data-layout-allow-overlap style="height:68.0px">
+    <svg class="{{ID}}-pi" width="44.0" height="44.0" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="#DC3A32"/><g transform="translate(8.36 8.36) scale(0.4263)"><path d="M8 40.5 C8 33.2 10.2 28.4 14.4 25.2 C19.4 21.4 25.4 19.6 32 19.6 C38.6 19.6 44.6 21.4 49.6 25.2 C53.8 28.4 56 33.2 56 40.5 Q56 44 52.5 44 L45 44 Q41.5 44 41.5 40.5 L41.5 35.8 Q41.5 33.4 39.3 32.9 C34.5 31.7 29.5 31.7 24.7 32.9 Q22.5 33.4 22.5 35.8 L22.5 40.5 Q22.5 44 19 44 L11.5 44 Q8 44 8 40.5 Z" fill="#fff"/></g></svg>
+    <span class="{{ID}}-pt" data-layout-allow-overlap>Call declined</span>
+  </div>
+</div>
+<div id="{{ID}}-cardw" data-layout-allow-overflow style="left:90.0px;top:232px;width:900.0px;height:164.0px">
+  <div id="{{ID}}-buzz">
+    <div id="{{ID}}-card">
+      <svg class="{{ID}}-av" width="108.0" height="108.0" viewBox="0 0 108 108"><defs><clipPath id="{{ID}}-avc"><circle cx="54" cy="54" r="54"/></clipPath></defs><circle cx="54" cy="54" r="54" fill="#8E8E93"/><g clip-path="url(#{{ID}}-avc)" fill="#E5E5EA"><circle cx="54" cy="42" r="19"/><path d="M14 112 C14 80 32 68 54 68 C76 68 94 80 94 112 Z"/></g></svg>
+      <div class="{{ID}}-name" data-layout-allow-overlap>Your Video Editor</div>
+      <div class="{{ID}}-label" data-layout-allow-overlap>Incoming call</div>
+      <div id="{{ID}}-decw" style="left:644.0px;top:30.0px;width:104px;height:104px"><svg id="{{ID}}-dec" class="{{ID}}-disc" width="104" height="104" viewBox="0 0 104 104"><circle cx="52.0" cy="52.0" r="52.0" fill="#DC3A32"/><circle id="{{ID}}-dec-dim" cx="52.0" cy="52.0" r="52.0" fill="#000" opacity="0"/><g transform="translate(13.5 13.5) scale(1.203125)"><g id="{{ID}}-decg"><g transform="rotate(0 32 32)"><path d="M8 40.5 C8 33.2 10.2 28.4 14.4 25.2 C19.4 21.4 25.4 19.6 32 19.6 C38.6 19.6 44.6 21.4 49.6 25.2 C53.8 28.4 56 33.2 56 40.5 Q56 44 52.5 44 L45 44 Q41.5 44 41.5 40.5 L41.5 35.8 Q41.5 33.4 39.3 32.9 C34.5 31.7 29.5 31.7 24.7 32.9 Q22.5 33.4 22.5 35.8 L22.5 40.5 Q22.5 44 19 44 L11.5 44 Q8 44 8 40.5 Z" fill="#fff"/></g></g></g></svg></div>
+      <div id="{{ID}}-accw" style="left:768.0px;top:30.0px;width:104px;height:104px"><svg id="{{ID}}-acc" class="{{ID}}-disc" width="104" height="104" viewBox="0 0 104 104"><circle cx="52.0" cy="52.0" r="52.0" fill="#2CA94F"/><circle id="{{ID}}-acc-dim" cx="52.0" cy="52.0" r="52.0" fill="#000" opacity="0"/><g transform="translate(20.0 20.0) scale(1.0)"><g id="{{ID}}-accg"><g transform="rotate(-135 32 32)"><path d="M8 40.5 C8 33.2 10.2 28.4 14.4 25.2 C19.4 21.4 25.4 19.6 32 19.6 C38.6 19.6 44.6 21.4 49.6 25.2 C53.8 28.4 56 33.2 56 40.5 Q56 44 52.5 44 L45 44 Q41.5 44 41.5 40.5 L41.5 35.8 Q41.5 33.4 39.3 32.9 C34.5 31.7 29.5 31.7 24.7 32.9 Q22.5 33.4 22.5 35.8 L22.5 40.5 Q22.5 44 19 44 L11.5 44 Q8 44 8 40.5 Z" fill="#fff"/></g></g></g></svg></div>
+      <div id="{{ID}}-tap" style="left:650.0px;top:36.0px;width:92.0px;height:92.0px"></div>
+    </div>
+  </div>
+</div>
+<style>
+#{{ID}} #{{ID}}-cardw { position:absolute; opacity:0; }
+#{{ID}} #{{ID}}-buzz { position:absolute; left:0; top:0; width:100%; height:100%; }
+#{{ID}} #{{ID}}-card { position:absolute; left:0; top:0; width:100%; height:100%; background:#1C1C1E; border-radius:40.0px;
+  box-shadow:0 14px 34px rgba(0,0,0,.26), 0 2px 6px rgba(0,0,0,.16), inset 0 0 0 1.5px rgba(255,255,255,.08); }
+#{{ID}} .{{ID}}-av { position:absolute; left:28.0px; top:28.0px; }
+#{{ID}} .{{ID}}-name { position:absolute; left:162.0px; top:26.0px; white-space:nowrap; font-family:var(--font-text); font-weight:700;
+  font-size:46.0px; line-height:56.0px; letter-spacing:-.022em; color:#FFFFFF; }
+#{{ID}} .{{ID}}-label { position:absolute; left:162.0px; top:86.0px; white-space:nowrap; font-family:var(--font-text); font-weight:500;
+  font-size:32.0px; line-height:42.0px; letter-spacing:-.008em; color:rgba(255,255,255,.62); }
+#{{ID}} #{{ID}}-decw, #{{ID}} #{{ID}}-accw { position:absolute; }
+#{{ID}} .{{ID}}-disc { position:absolute; left:0; top:0; display:block; }
+#{{ID}} #{{ID}}-pillrow { position:absolute; left:0; width:1080px; display:flex; justify-content:center; }
+#{{ID}} #{{ID}}-pillw { display:flex; align-items:center; padding:0 26.0px 0 12.0px; background:#1C1C1E; border-radius:34.0px; opacity:0;
+  box-shadow:0 8px 20px rgba(0,0,0,.24), inset 0 0 0 1.5px rgba(255,255,255,.08); }
+#{{ID}} .{{ID}}-pi { flex:none; }
+#{{ID}} .{{ID}}-pt { margin-left:14.0px; white-space:nowrap; font-family:var(--font-text); font-weight:600; font-size:36.0px; line-height:68.0px;
+  letter-spacing:-.01em; color:#FFFFFF; }
+#{{ID}} #{{ID}}-tap { position:absolute; border-radius:50%; background:rgba(255,255,255,.30); box-shadow:0 0 0 2px rgba(255,255,255,.7); opacity:0; }
+</style>

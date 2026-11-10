@@ -31,7 +31,7 @@ moves the beats to the spoken words.
 - Wide display faces run long: cards that show a big figure measure it after the pack's fonts load and fit it
   (`pie`, `dollar-split`). Keep figures short (`4.5 mo`, `45%`) and test with two packs.
 - Real artifacts first: the source screenshot, the public-domain bill. A generated image only when the lead hands
-  one over (tagged on the storyboard), never generated people.
+  one over (tagged on the storyboard).
 - `source-screenshot` ships a made-up example page (`img/source.png`); swap in a real screenshot of the source and
   move the dots and tags to its items (the comment at the top of its `index.html` says how).
 

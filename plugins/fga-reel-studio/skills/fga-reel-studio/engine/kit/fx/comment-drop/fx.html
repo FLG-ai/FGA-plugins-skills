@@ -1,0 +1,71 @@
+<!-- comment-drop (top), the CTA: the whole thread hovers ABOVE the speaker's head, never over the face. A comment
+     composer slides in on its word; on the keyword its letters pop in big across the top of the frame and fall one
+     after another, with gravity, into the composer, which takes each hit and types the letter. The comment posts and
+     lifts, the speaker's reply (headshot, handle) drops in under it on a thread line, its words land on theirs, the
+     comment gets a like, and both float up and away at the end. The big letters split light/dark against the picture
+     (light over dark areas, dark over light ones): one dark copy per frame shows through that frame's tile of
+     masks.png, made from the footage by gen.py. Words, cues and the layout live in fx.js. -->
+<div class="cd-band cd-lt" id="{{ID}}-lt" data-layout-allow-overlap><div class="cd-word" data-layout-allow-overlap></div></div>
+<div class="cd-dks" data-layout-allow-overlap></div>
+
+<div class="cd-group" data-layout-allow-overflow data-layout-allow-overlap>
+  <svg class="cd-thread" viewBox="0 0 80 120" width="80" height="120"><path class="cd-tp" d="M4 0 V82 Q4 108 30 108 H70"/></svg>
+  <div class="cd-card cd-reply">
+    <div class="cd-av cd-me"></div>
+    <div class="cd-meta"><b class="cd-handle"></b><span class="cd-dot">·</span><span class="cd-when"></span></div>
+    <div class="cd-rtxt" data-layout-allow-overlap></div>
+  </div>
+  <div class="cd-card cd-box">
+    <div class="cd-av cd-anon"><svg viewBox="0 0 48 48"><circle class="cd-gl" cx="24" cy="19" r="8"/><path class="cd-gl" d="M8 46 C9.5 34 16 29.5 24 29.5 C32 29.5 38.5 34 40 46 Z"/></svg></div>
+    <div class="cd-meta cd-bmeta"><b class="cd-viewer"></b><span class="cd-dot">·</span><span class="cd-when"></span></div>
+    <div class="cd-ph"></div>
+    <div class="cd-txt" data-layout-allow-overlap><span class="cd-typed" data-layout-allow-overlap></span><i class="cd-caret"></i></div>
+    <div class="cd-post"><span class="cd-pl"></span></div>
+    <div class="cd-heart"><svg viewBox="0 0 48 48" width="44" height="44"><path class="cd-hp" d="M24 40 C10 31 6 24 6 17.5 C6 12 10 8 15 8 C19 8 22 10.5 24 14 C26 10.5 29 8 33 8 C38 8 42 12 42 17.5 C42 24 38 31 24 40 Z"/></svg></div>
+  </div>
+</div>
+<style>
+/* the big letters: a 1080x600 band from y 160 (gen.py makes the masks for exactly this band) */
+#{{ID}} .cd-band { position:absolute; left:0; top:160px; width:1080px; height:600px; }
+#{{ID}} .cd-dks { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#{{ID}} .cd-word { position:absolute; left:0; top:0; width:1080px; height:170px; }
+#{{ID}} .cd-f { position:absolute; top:0; height:170px; text-align:center; white-space:nowrap; }
+#{{ID}} .cd-fi { display:inline-block; font-family:var(--font-text); font-weight:800; font-size:160px; line-height:170px;
+  letter-spacing:0; color:var(--c-light); transform-origin:50% 50%; }
+#{{ID}} .cd-dk .cd-fi { color:var(--c-dark); }
+#{{ID}} .cd-dk { -webkit-mask-image:url(fx/{{ID}}/masks.png); mask-image:url(fx/{{ID}}/masks.png);
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
+/* the thread: frame coordinates of the group are set by fx.js (GROUP_Y) */
+#{{ID}} .cd-group { position:absolute; left:0; top:0; width:1080px; height:10px; }
+#{{ID}} .cd-card { position:absolute; height:112px; border-radius:min(30px, calc(var(--radius) * 5)); background:var(--c-tb-bg); overflow:hidden;
+  box-shadow:0 16px 36px color-mix(in srgb, var(--c-dark) 26%, transparent), 0 2px 5px color-mix(in srgb, var(--c-dark) 12%, transparent); }
+#{{ID}} .cd-box { left:90px; top:180px; width:900px; transform-origin:50% 100%; }
+#{{ID}} .cd-reply { left:190px; top:162px; width:800px; transform-origin:50% 0%; }
+#{{ID}} .cd-av { position:absolute; left:24px; top:24px; width:64px; height:64px; border-radius:50%; overflow:hidden; }
+#{{ID}} .cd-av svg, #{{ID}} .cd-av img { position:absolute; left:0; top:0; width:100%; height:100%; display:block; object-fit:cover; }
+#{{ID}} .cd-anon { background:color-mix(in srgb, var(--c-tb-ink) 38%, var(--c-tb-bg)); }
+#{{ID}} .cd-anon .cd-gl { fill:var(--c-tb-bg); }
+#{{ID}} .cd-me { background:var(--c-dark); text-align:center; font-family:var(--font-text); font-weight:700; font-size:25px; line-height:64px;
+  letter-spacing:.02em; color:var(--c-light); }
+#{{ID}} .cd-meta { position:absolute; left:108px; top:20px; font-family:var(--font-text); font-weight:500; font-size:24px; line-height:28px;
+  letter-spacing:-.005em; white-space:nowrap; color:color-mix(in srgb, var(--c-tb-ink) 55%, var(--c-tb-bg)); }
+#{{ID}} .cd-meta b { font-weight:700; color:var(--c-tb-ink); }
+#{{ID}} .cd-dot { padding:0 8px; }
+#{{ID}} .cd-ph { position:absolute; left:108px; top:34px; font-family:var(--font-text); font-weight:500; font-size:36px; line-height:44px;
+  letter-spacing:-.01em; white-space:nowrap; color:color-mix(in srgb, var(--c-tb-ink) 42%, var(--c-tb-bg)); }
+#{{ID}} .cd-txt { position:absolute; left:108px; top:32px; width:600px; height:48px; white-space:nowrap; }
+#{{ID}} .cd-typed { position:absolute; left:0; top:0; width:600px; height:48px; font-family:var(--font-text); font-weight:800; font-size:38px; line-height:48px; color:var(--c-tb-ink); }
+#{{ID}} .cd-t { position:absolute; top:0; text-align:center; transform-origin:50% 80%; }
+#{{ID}} .cd-caret { position:absolute; left:0; top:5px; width:3px; height:38px; background:var(--c-dark); }
+#{{ID}} .cd-post { position:absolute; right:22px; top:20px; width:128px; height:72px; border-radius:min(36px, calc(var(--radius) * 6));
+  background:color-mix(in srgb, var(--c-tb-ink) 9%, var(--c-tb-bg)); text-align:center; font-family:var(--font-text); font-weight:700;
+  font-size:30px; line-height:72px; letter-spacing:-.01em; color:color-mix(in srgb, var(--c-tb-ink) 42%, var(--c-tb-bg)); transform-origin:50% 50%; }
+#{{ID}} .cd-heart { position:absolute; right:40px; top:34px; width:44px; height:44px; transform-origin:50% 50%; }
+#{{ID}} .cd-heart svg { display:block; }
+#{{ID}} .cd-hp { fill:none; stroke:color-mix(in srgb, var(--c-tb-ink) 50%, var(--c-tb-bg)); stroke-width:3.4; stroke-linejoin:round; }
+#{{ID}} .cd-rtxt { position:absolute; left:108px; top:52px; font-family:var(--font-text); font-weight:600; font-size:34px; line-height:44px;
+  letter-spacing:-.015em; white-space:nowrap; color:var(--c-tb-ink); }
+#{{ID}} .cd-rtxt span { display:inline-block; }
+#{{ID}} .cd-thread { position:absolute; left:142px; top:110px; width:80px; height:120px; overflow:visible; }
+#{{ID}} .cd-tp { fill:none; stroke:var(--c-tb-bg); stroke-width:5; stroke-linecap:round; stroke-dasharray:160; stroke-dashoffset:160; }
+</style>

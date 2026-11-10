@@ -4,11 +4,13 @@ You are building one full-screen motion-graphic card for a 1080x1920, 30fps vert
 over the speaker while their voice keeps playing; the main edit lays live captions over it. It must look like it
 came from the same hand as every other card in the video, and like the creator, not like this kit.
 
-KIT is this repo. PROJECT is the video's folder (your prompt gives both).
+KIT is this repo. PROJECT is the video's folder (your prompt gives both). When your prompt gives a `PATH=` prefix (the kit's own
+ffmpeg and Node), start every shell command with it.
 - `PROJECT/style/STYLE.md`: the creator's style in words, with a Hi-fi section that says how their cards should
   feel (read it first). `PROJECT/style/brand.css`: their tokens and fonts.
 - `KIT/kit/TOKENS.md`: every token and what it means. `KIT/kit/card.css`: type voices and devices built on them.
-- `KIT/cards/LIBRARY.md`: the card patterns; start from the closest one when your prompt names it.
+- `KIT/cards/LIBRARY.md`: the card patterns, plus the creator's own in `HOME/cards/LIBRARY.md` (on the same name
+  theirs wins); start from the closest one when your prompt names it.
 - `KIT/kit/template.html`: a working skeleton with `q()`, `tok()`, `draw()` and `count()`.
 
 Start: make your folder `PROJECT/cards/<id>/` and copy into it the library card you start from (if any), then
@@ -26,7 +28,7 @@ Never edit KIT, the style pack, or other cards.
 - Hairlines 1.5-3px, corners `var(--radius)`. NO gradients, glows, blur as decoration, drop shadows, glassmorphism,
   emoji, clip art or decorative icons. Simple hairline diagrams are fine.
 - Real artifacts first: screenshots of the source, scans of real objects, what the creator sends. A generated
-  image only when your prompt hands you one; never make your own, and never generated people.
+  image only when your prompt hands you one; never make your own.
 - No em dashes in on-screen text; use the real minus "−" for negatives.
 - Data to scale: areas, lengths and splits are true to the numbers.
 
