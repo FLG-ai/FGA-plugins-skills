@@ -338,7 +338,16 @@ def recap_path(d, r):
     manifest and one flat folder keeps them all at _recaps/."""
     sub = os.path.relpath(r["root"], d) if r.get("root") else "."
     base = r.get("stem") or re.sub(r"[^\w .,&()'-]+", "", r["lesson"])[:80]
-    return os.path.normpath(os.path.join(d, "_recaps", sub, f"{base} - Recap.md"))
+    std = os.path.normpath(os.path.join(d, "_recaps", sub, f"{base} - Recap.md"))
+    if not os.path.exists(std):
+        # courses kept inside a holding folder keep their own _recaps beside them:
+        # <holder>/_recaps/<module>/<stem> - Recap.md
+        parts = sub.split(os.sep)
+        if len(parts) > 1:
+            alt = os.path.normpath(os.path.join(d, parts[0], "_recaps", *parts[1:], f"{base} - Recap.md"))
+            if os.path.exists(alt):
+                return alt
+    return std
 
 
 def lesson_no(r):

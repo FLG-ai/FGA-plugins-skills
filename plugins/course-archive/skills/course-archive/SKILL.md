@@ -10,6 +10,53 @@ One job, any platform: get every lesson the user's account can already open onto
 as markdown, so they keep it if access ends. Personal member copy only, never
 redistribute.
 
+## Step -1: first time here? Walk them through it
+
+This skill is shared with people who have never used Claude Code, so before
+Step 0, find out where they are and get them set up in plain language, one small
+step at a time. Skip anything they already have. Never use jargon without one
+plain sentence saying what it is.
+
+**1. The right place.** The archive saves files onto their computer, so it only
+runs in the **Code tab of the Claude desktop app** (download from
+claude.com/download, sign in, click Code at the top). A normal chat window or the
+phone app cannot do it. It needs a paid Claude plan. If they are in a normal
+chat, say so kindly and tell them how to get to the Code tab before going on.
+
+**2. The right model.** Look at which model this session is using and tell them
+in one line. Best results come from **Opus 5.5**: use it for a first pull, a big
+course (30 lessons or more), or a platform with no adapter, because the recaps
+and the platform detective work are where a smaller model gets thin. **Sonnet 5.5**
+is fine for a small course or a re-run to catch new lessons. Do not run it on
+Haiku. If they are on the wrong one, show them the model picker beside the
+message box and ask them to switch before going on.
+
+**3. What they need installed.** Tell them this list once, plainly, so nothing
+surprises them. Step 0 checks each one and gives the exact command for anything
+missing:
+- Google Chrome, with them signed in to the course there (needed)
+- Python 3 (needed, a free Apple download on a Mac: `xcode-select --install`)
+- yt-dlp, which downloads the videos (needed)
+- python-docx, which writes the Word index and recaps (needed for Word)
+- ffmpeg and faster-whisper, only for videos with no captions, so Claude can
+  transcribe them on the computer
+- Google Drive for Desktop, optional, so links open from Drive
+
+Nothing installs without their yes, and nothing leaves their computer.
+
+**4. What to expect.** Say it before starting: a course is usually 30 minutes to a
+few hours depending on size, the videos can take several gigabytes (ask where
+they have room, or offer to skip the video files and keep text, transcripts and
+links), and the pull only fetches what their own login can already open.
+The recaps are written after the download, lesson by lesson. They can leave it
+running, and on a re-run only new lessons get pulled.
+
+**5. Windows.** It was built on a Mac. On Windows, say the first run may need
+small fixes, offer to try, and use the same steps with `winget` in place of
+`brew` where it comes up.
+
+When they say they are ready, go to Step 0.
+
 ## Step 0: check the tools and ask where to save
 
 Run this first, every time, before touching the course:
